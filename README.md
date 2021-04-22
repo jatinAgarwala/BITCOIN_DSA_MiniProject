@@ -1,14 +1,14 @@
 # BITCOIN_DSA_MiniProject
 This is the repository for group 9 of the Data Structures and Algorithms MiniProject for the UG1 students of IIIT Hyderabad during the year 2020-21. Our topic is-
 
-**V. BITCOIN**
+## V. BITCOIN
 In this project, you will simulate the working of Bitcoin
 and do various operations.
 Assigned to: Aditya Kumar
 
 
 
-**A. Description**
+### A. Description
 In the Bitcoin system, transactions are stored in data
 blocks like this. Each Block contains 50 transactions, and
 it is structured as follows.
@@ -23,7 +23,7 @@ ID, Wallet Balance, Transaction History, JoinDateTime.
 
 
 
-**B. Task List**
+### B. Task List
 You have to implement the following functionalities
 
 1. **Add user to the system -** Assigns a randomly
@@ -52,3 +52,39 @@ It needs a consensus protocol to add new blocks or check
 the validity of a node. This Project aims to give you
 a smaller picture of Bitcoin and in no way a complete
 representation of Bitcoin.
+
+# IMPLEMENTATION
+
+## Data Structures
+
+**Block_Chain**
+Data Structure - Linked List of Blocks
+
+The Root Node will contain the total number of blocks in the block-chain in BlockNumber
+
+**Block**
+Data Structure - Node of a Linked List which stores the following information-
+  1. BlockNumber (int)
+  2. PreviousBlockHash (string)
+  3. Nonce (int)
+  4. Transations (array of TransactionInfo of size 50)
+  5. numTransations (int storing current number of transactions filled in the block)
+
+**TransactionInfo**
+Data Structure - struct which stores the following information-
+  1. SenderUID (int, User ID of the sender)
+  2. ReceiverUID (int, User ID of the receiver)
+  3. Amount (double, amount of bitcoins given by the sender to the receiver)
+  4. NextTransaction (pointer to TransactionInfo) //Will be used for implementing TransactionHistory of each user
+
+**USERS-INFORMATION**
+Data Structure - Array of UserInfo
+
+**UserInfo**
+Data Structure - struct which stores the following information-
+  1. UID (int, User ID of the user)
+  2. Balance (double)
+  3. TransactionHistory (Linked List of TransactionInfo)
+  4. JoinDateTime (***TBD***)
+
+## Functions
