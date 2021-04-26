@@ -123,9 +123,10 @@ to generate a Hash value    (***TBD*** Which Hash function to use)
 ## FILES
 
 ### block.h
-Contains:
-  1) struct block
-  2) PtrToBlock InitBlock()
+  Contains:
+    1) struct block
+    2) PtrToBlock InitBlock()
 ### block.c
-  1) Defined InitBlock() {srand used for Nonce}
+  Contains:
+    1) Defined InitBlock() {srand used for Nonce}
 
