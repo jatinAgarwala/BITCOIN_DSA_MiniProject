@@ -8,6 +8,7 @@ struct user {
     double balance;
     //TransactionHistory
     //JoinDateTime
+    char str[30];
 };
 
 #endif
