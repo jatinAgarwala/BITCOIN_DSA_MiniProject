@@ -4,11 +4,13 @@
 typedef struct user User;
 
 struct user {
-    int uid;
-    double balance;
-    //TransactionHistory
-    //JoinDateTime
-    char str[30];
+    int UID;
+    double Balance;
+    //TransactionHistory 
+    char* JoinDateTime;  
 };
+ 
+
+ 
 
 #endif
