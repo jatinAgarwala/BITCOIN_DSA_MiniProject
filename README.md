@@ -85,7 +85,7 @@ Data Structure - struct which stores the following information-
   1. UID (int, User ID of the user)   
   2. Balance (double)
   3. TransactionHistory (Linked List of TransactionInfo)
-  4. JoinDateTime (***TBD***)
+  4. JoinDateTime ( char * )
 
 ## Functions
 
@@ -129,3 +129,14 @@ Contains:
 ### block.c
 Defines:
   1. InitBlock() (srand used for Nonce)
+
+### Transaction.h
+Contains :
+ 1. struct Transaction (typedefed as Trans_node)
+
+ ### User.h
+ Contains :
+ 1. struct user (typedefed as User)
+
+ ### User.c
+ 1. Get_JoinDateTime (return char * - a string pointe giving JDT as DAY Month DD HH:MM:SS YYYY)
