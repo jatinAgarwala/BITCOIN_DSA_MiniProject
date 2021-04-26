@@ -119,3 +119,7 @@ Chaeck if the PreviousBlockHash matches the output of the Hash Function
 **HashFunction**
 Uses the information of a Block- BlockNumber, Transactions, PreviousBlockHash, Nonce (of the Previous Block)
 to generate a Hash value    (***TBD*** Which Hash function to use)
+
+##FILES
+
+###Hash.h
