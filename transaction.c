@@ -3,11 +3,20 @@
 #include <stdio.h>
 
 
-void Transact(int S_UID, int R_UID, int Amount)
+int Transact(int S_UID, int R_UID, int Amount)
 {
-     User ptr = Find_User(S_UID,Ht);  //Ht = data structure containing users
-     
+     User sender = Find_User(S_UID,Ht);  //Ht = data structure containing users
 
+     if(sender->Balance >= Amount) {
+          sender->Balance -= Amount;
+          User receiver = Find_User(R_UID,Ht);
+          receiver->Balance += Amount;
+
+          addTransaction(sender->TransactionHistory);
+          addTransaction(receiver->TransactionHistory);
+     }
+     else return -1;
+     
      //if user->balance >= Amount then deduct
      //if not return -1
      // update trans history of user

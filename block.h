@@ -9,7 +9,7 @@ struct block
     int BlockNumber;
     int PreviousBlockHash;   //TBD
     int Nonce;    //TBD
-    Trans_node Transaction_Array[50];    
+    Transaction Transaction_Array[50];    
     int numTransaction;                   // Update of no. of Transactions
 
     // need doubly link list
