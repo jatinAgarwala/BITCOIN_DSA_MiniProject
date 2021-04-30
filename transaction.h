@@ -1,21 +1,14 @@
 #ifndef _Transaction_H
 #define _Transaction_H
 
-typedef struct Transaction Trans_node; 
+typedef struct transaction* Transaction; 
 
-struct Transaction{
-
+struct transaction
+{
     int S_UID ;
     int R_UID ;
     double Amount ;
-    Trans_node * pNext;
-
+    Transaction Next;
 };
 
-
-
-
-
-
 #endif
-

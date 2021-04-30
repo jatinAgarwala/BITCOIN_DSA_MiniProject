@@ -12,6 +12,6 @@ void Transact(int S_UID, int R_UID, int Amount)
      //if not return -1
      // update trans history of user
      //after deducting user balance (if deducted) then add amount to the R_UID by Finding it in User hash table/etc
-     //update trans history of reciever
+     //update trans history of receiver
     
 }
