@@ -12,8 +12,8 @@ int Transact(int S_UID, int R_UID, int Amount)
           User receiver = Find_User(R_UID,Ht);
           receiver->Balance += Amount;
 
-          addTransaction(sender->TransactionHistory);
-          addTransaction(receiver->TransactionHistory);
+          addTransaction(sender->TransactionHistory,R_UID,-1*Amount);
+          addTransaction(receiver->TransactionHistory,S_UID,Amount);
      }
      else return -1;
      

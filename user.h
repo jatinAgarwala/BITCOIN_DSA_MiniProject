@@ -9,7 +9,7 @@ struct user
 {
     int UID;
     double Balance;
-    Transaction TransactionHistory;
+    U_transactions TransactionHistory;
     char* JoinDateTime;  
 };
 

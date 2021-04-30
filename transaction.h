@@ -11,4 +11,13 @@ struct transaction
     Transaction Next;
 };
 
+typedef struct user_transactions *U_transactions;
+
+struct user_transactions {
+    int UID;
+    double Amount;
+    U_transactions Next; 
+};
+
+
 #endif

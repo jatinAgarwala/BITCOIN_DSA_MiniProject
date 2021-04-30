@@ -24,10 +24,34 @@ User InitUser()
     User temp = (User)malloc(sizeof(struct user));
     temp->Balance = InitialBalance;
     temp->JoinDateTime = Get_JoinDateTime();
+    temp->TransactionHistory = NULL ; 
     return temp;
 }
+
+U_transactions Make_UserTH_Node(int UID,double Amount)
+{
+    U_transactions Node = (U_transactions)malloc(sizeof(struct user_transactions));
+    
+    Node->UID = UID ;
+    Node->Amount = Amount ;
+    Node->Next = NULL;
+
+    return Node;
+}
+
+void addTransaction(U_transactions TH  ,int UID, double Amount) 
+{
+    U_transactions Node = Make_UserTH_Node(UID, Amount);
+
+    TH->Next = Node ;
+    
+}
+
 
 int main ()
 {
     
 }
+
+
+
