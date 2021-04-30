@@ -18,3 +18,4 @@ struct block
 PtrToBlock InitBlock();
 
 #endif
+
