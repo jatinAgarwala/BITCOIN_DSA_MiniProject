@@ -133,10 +133,17 @@ Defines:
 ### Transaction.h
 Contains :
  1. struct Transaction (typedefed as Trans_node)
+ 
+### Transaction.c
+Contains:
+ 1. int Transact(int S_UID, int R_UID, int Amount)
 
- ### User.h
+### User.h
  Contains :
  1. struct user (typedefed as User)
 
- ### User.c
- 1. Get_JoinDateTime (return char * - a string pointe giving JDT as DAY Month DD HH:MM:SS YYYY)
+### User.c
+ 1. Get_JoinDateTime (return char * - a string pointer giving JDT as DAY Month DD HH:MM:SS YYYY)
+ 2. InitUser() (function to initialize User)
+ 3. makeUserTransaction(int UID,double Amount) (function to create a node that is to be added to a user's transaction history)
+ 4. addUserTransaction(U_transactions TH, int UID, double Amount) (function to add a transaction to a user's transaction history)

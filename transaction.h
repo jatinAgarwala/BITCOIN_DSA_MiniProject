@@ -19,5 +19,6 @@ struct user_transactions {
     U_transactions Next; 
 };
 
+int Transact(int S_UID, int R_UID, int Amount);
 
 #endif

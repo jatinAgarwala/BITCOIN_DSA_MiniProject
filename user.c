@@ -28,7 +28,7 @@ User InitUser()
     return temp;
 }
 
-U_transactions Make_UserTH_Node(int UID,double Amount)
+U_transactions makeUserTransaction(int UID,double Amount)
 {
     U_transactions Node = (U_transactions)malloc(sizeof(struct user_transactions));
     
@@ -39,7 +39,7 @@ U_transactions Make_UserTH_Node(int UID,double Amount)
     return Node;
 }
 
-void addTransaction(U_transactions TH  ,int UID, double Amount) 
+void addUserTransaction(U_transactions TH  ,int UID, double Amount) 
 {
     U_transactions Node = Make_UserTH_Node(UID, Amount);
 
