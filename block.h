@@ -1,17 +1,19 @@
 #ifndef BLOCK_H
 #define BLOCK_H
-// Include transaction.h too
+#include "transaction.h" 
 
 typedef struct block Block ;
 typedef Block* PtrToBlock ;
 struct block
 {
     int BlockNumber;
-    int PreviousBlockHash;
-    int Nonce;
-    // transactioninfo transactions[50];
-    int numTransaction;
-    PtrToBlock Next;
+    int PreviousBlockHash;   //TBD
+    int Nonce;    //TBD
+    Trans_node Transaction_Array[50];    
+    int numTransaction;                   // Update of no. of Transactions
+
+    // need doubly link list
+    PtrToBlock Next;  
     PtrToBlock Prev;  
 };
 
