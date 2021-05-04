@@ -16,13 +16,18 @@ PtrToBlock InitBlock()
     return Temp;
 }
 
-void AddBlockTransaction(int S_UID, int R_UID, int amount)
+void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)
 {
-
+    
 }
 
-int Attack(PtrToBlock Head){//Head is pointer to 1st block
+int Attack(BlockChain B)    //Head is pointer to 1st block
+{
+    PtrToBlock Head = B->Head;
     int randnum = (rand()%50) + 1;
+    if(randnum >= B->NumBlocks)
+        return 0;
+    
     int blocknum = (randnum);
     randnum--;
     PtrToBlock tmp = Head;
@@ -41,7 +46,8 @@ int Attack(PtrToBlock Head){//Head is pointer to 1st block
             tmp = tmp->Next;
         }
     }
-    if(randnum < 0){
+
+    if(randnum < 0)
         return 0;
-    }
+    return -1;              //It should never return -1, but having this as a check
 }

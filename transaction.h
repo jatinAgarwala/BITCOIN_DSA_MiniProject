@@ -8,7 +8,7 @@ struct transaction
     int S_UID ;
     int R_UID ;
     double Amount ;
-    Transaction Next;
+    Transaction Next;       //For the U_Transactions
 };
 
 typedef struct user_transactions* U_transactions;

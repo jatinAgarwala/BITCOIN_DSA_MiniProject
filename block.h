@@ -2,8 +2,8 @@
 #define BLOCK_H
 #include "transaction.h" 
 
-typedef struct block Block ;
-typedef Block* PtrToBlock ;
+typedef struct block Block;
+typedef Block* PtrToBlock;
 
 struct block
 {
@@ -18,8 +18,18 @@ struct block
     PtrToBlock Prev;  
 };
 
+typedef struct blockChain* BlockChain;
+
+struct blockChain
+{
+    PtrToBlock Head;
+    PtrToBlock CurrBlock;
+    int NumBlocks;
+};
+
 PtrToBlock InitBlock();
 
-void AddBlockTransaction(int S_UID, int R_UID, int amount);
+void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B);
+int Attack(BlockChain B);
 
 #endif

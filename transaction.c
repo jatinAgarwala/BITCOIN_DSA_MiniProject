@@ -1,14 +1,15 @@
 #include "transaction.h"
 #include "user.h"
+#include "block.h"
 #include <stdio.h>
 
 
-int Transact(int S_UID, int R_UID, int amount)
+int Transact(int S_UID, int R_UID, int amount, BlockChain B /*,UserHashTable UHT*/)
 {
-    User sender = Find_User(S_UID,Ht);  //Ht = data structure containing users
+    User sender = FindUser(S_UID,UHT);  //Ht = data structure containing users
 
     if(sender->Balance >= amount) 
-        {
+    {
         sender->Balance -= amount;
         User receiver = Find_User(R_UID,Ht);
         receiver->Balance += amount;
@@ -16,8 +17,8 @@ int Transact(int S_UID, int R_UID, int amount)
         AddUserTransaction(sender->TransactionHistory,R_UID,-1*amount);
         AddUserTransaction(receiver->TransactionHistory,S_UID,amount);
 
-        AddBlockTransaction(sender, receiver, amount);
-        }
+        AddBlockTransaction(sender, receiver, amount, B);
+    }
     else
         return -1;
 

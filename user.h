@@ -14,7 +14,9 @@ struct user
 };
 
 User InitUser();
-U_transactions MakeUserTransaction(int UID,double amount);
+U_transactions InitUserTransaction(int UID,double amount);
 void AddUserTransaction(U_transactions TH  ,int UID, double amount);
+
+User FindUser(int UID, UserHashTable UHT);
 
 #endif
