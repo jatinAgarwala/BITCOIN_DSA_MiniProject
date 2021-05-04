@@ -4,6 +4,7 @@
 
 typedef struct block Block ;
 typedef Block* PtrToBlock ;
+
 struct block
 {
     int BlockNumber;
@@ -19,5 +20,6 @@ struct block
 
 PtrToBlock InitBlock();
 
-#endif
+void AddBlockTransaction(int S_UID, int R_UID, int amount);
 
+#endif

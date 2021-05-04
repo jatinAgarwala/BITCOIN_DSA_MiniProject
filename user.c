@@ -14,7 +14,7 @@ char * Get_JoinDateTime()
     time ( &rawtime );
     timeinfo = localtime ( &rawtime );
 
-// returns time in Day, Month/date time in hh:mm:ss year
+    // returns time in Day, Month/date time in hh:mm:ss year
 
    return asctime(timeinfo);
 }
@@ -28,30 +28,21 @@ User InitUser()
     return temp;
 }
 
-U_transactions makeUserTransaction(int UID,double Amount)
+U_transactions MakeUserTransaction(int UID,double amount)
 {
     U_transactions Node = (U_transactions)malloc(sizeof(struct user_transactions));
     
     Node->UID = UID ;
-    Node->Amount = Amount ;
+    Node->Amount = amount ;
     Node->Next = NULL;
 
     return Node;
 }
 
-void addUserTransaction(U_transactions TH  ,int UID, double Amount) 
+void AddUserTransaction(U_transactions TH  ,int UID, double amount) 
 {
-    U_transactions Node = Make_UserTH_Node(UID, Amount);
-
+    U_transactions Node = Make_UserTH_Node(UID, amount);
+    Node->Next = TH->Next;      //Adds the Node at the top
     TH->Next = Node ;
-    
+    return;
 }
-
-
-int main ()
-{
-    
-}
-
-
-

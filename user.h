@@ -14,10 +14,7 @@ struct user
 };
 
 User InitUser();
-char * Get_JoinDateTime();
-User InitUser();
-U_transactions makeUserTransaction(int UID,double Amount);
-void addUserTransaction(U_transactions TH  ,int UID, double Amount);
+U_transactions MakeUserTransaction(int UID,double amount);
+void AddUserTransaction(U_transactions TH  ,int UID, double amount);
 
 #endif
-

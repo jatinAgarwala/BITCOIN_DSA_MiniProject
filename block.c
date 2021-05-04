@@ -16,6 +16,11 @@ PtrToBlock InitBlock()
     return Temp;
 }
 
+void AddBlockTransaction(int S_UID, int R_UID, int amount)
+{
+
+}
+
 int Attack(PtrToBlock Head){//Head is pointer to 1st block
     int randnum = (rand()%50) + 1;
     int blocknum = (randnum);
@@ -40,4 +45,3 @@ int Attack(PtrToBlock Head){//Head is pointer to 1st block
         return 0;
     }
 }
-

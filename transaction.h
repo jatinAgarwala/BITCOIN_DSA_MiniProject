@@ -11,14 +11,15 @@ struct transaction
     Transaction Next;
 };
 
-typedef struct user_transactions *U_transactions;
+typedef struct user_transactions* U_transactions;
 
-struct user_transactions {
+struct user_transactions 
+{
     int UID;
     double Amount;
     U_transactions Next; 
 };
 
-int Transact(int S_UID, int R_UID, int Amount);
+int Transact(int S_UID, int R_UID, int amount);
 
 #endif
