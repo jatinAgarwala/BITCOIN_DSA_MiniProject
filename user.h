@@ -13,7 +13,23 @@ struct user
     char* JoinDateTime;  
 };
 
+typedef struct userHashTable* UserHashTable;
+
+struct userHashTable
+{
+    int* UserHT;
+    int NumUsers;
+    int UHTSize;
+};
+
+int UserHashFunction(int UID, UserHashTable UHT);
+UserHashTable ResizeUHT(UserHashTable UHT);
+int AddUser(int UserIndex, UserHashTable); 
+int* SearchUHT(int UID, UserHashTable UHT);
+
 User InitUser();
+UserHashTable InitUserHashTable(int HTSize);
+
 U_transactions InitUserTransaction(int UID,double amount);
 void AddUserTransaction(U_transactions TH  ,int UID, double amount);
 
