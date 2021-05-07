@@ -8,6 +8,7 @@ double InitialBalance;
 
 int main()
 {
+    srand(time(0));
     printf("\t\t\tBITCOIN\t\t\n");
     printf("\t\t\t-------\t\t\n\n\n");
 
