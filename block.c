@@ -24,19 +24,25 @@ void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)
 
 int Attack(BlockChain B)    //Head is pointer to 1st block
 {
-    PtrToBlock Head = B->Head;
-    int randnum = (rand()%50) + 1;
-    if(randnum >= B->NumBlocks)
+    PtrToBlock Head = B->Head;   // head ptr
+    int randnum = (rand()%50) + 1;  //random number
+    
+    
+    if(randnum >= B->NumBlocks)     // if user asks to attack a block which does not exist
         return 0;
     
     int blocknum = (randnum);
     randnum--;
-    PtrToBlock tmp = Head;
+    PtrToBlock tmp = Head;          // tmp= head block
+
+
+    // in the below code , we reach attacked block and we change the nonce 
+    // for example , attack block 4 = change its nonce to a random number
     while(tmp->Next != NULL){
         if(randnum == 0){
             int r = rand()%500 + 1;
             if(r == tmp->Nonce){
-                tmp->Nonce = r+1;
+                tmp->Nonce = r+1;         
             }
             else 
                 tmp->Nonce = r;
@@ -77,8 +83,13 @@ int replace(int digit,int digit_posn, int Original_num) {
 
 
 //To calculate previousBlockHash of a block
-int getpreviousBlockHash(int BlockNumber, Transaction transactions, int previousBlockHash, int nonce) {
-          
+int getpreviousBlockHash(PtrToBlock block_node) // block_node = ptr to the previous block (which is full)
+ {
+
+          int BlockNumber = block_node->BlockNumber;
+          Transaction transactions = block_node->Transaction_Array ;
+           int previousBlockHash = block_node->PreviousBlockHash;
+           int nonce = block_node->Nonce ;
     
     if(previousBlockHash==0)          // for Block 1/head block
     previousBlockHash = 123456;
@@ -115,3 +126,42 @@ int getpreviousBlockHash(int BlockNumber, Transaction transactions, int previous
 
     return NewBlockHash;
 }
+
+
+int Validate_BlockChain(BlockChain Chain){
+    
+      PtrToBlock ptr = Chain->Head ;
+
+      int Num = Chain->NumBlocks - 1 ;
+      int i = 0;
+      int flag = 0;
+
+      while(Num--)
+      {
+         int pBh = ptr->Next->PreviousBlockHash ;  //we are accessing the stored value of previousBlockhash (original value)
+         int pBh_next = getpreviousBlockHash(ptr);  // here we are computing the new value to check the validity
+         
+         if(pBh!=pBh_next) 
+         {
+             for(int i=1;i<=500;i++)
+             {
+                 ptr->Nonce = i;
+                 pBh_next = getpreviousBlockHash(ptr);
+                 if(pBh==pBh_next)  
+                 {
+                 printf("block %d was attacked ",ptr->BlockNumber);
+                flag = 1;
+                 }
+
+             }
+         }
+
+         ptr = ptr->Next ;
+
+      }  
+
+      
+         return flag;
+}
+ 
+

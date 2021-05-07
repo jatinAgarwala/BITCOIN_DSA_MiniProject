@@ -31,5 +31,5 @@ PtrToBlock InitBlock();
 
 void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B);
 int Attack(BlockChain B);
-
+// Create block function after a block is filled
 #endif
