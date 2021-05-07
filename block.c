@@ -10,11 +10,28 @@ PtrToBlock InitBlock()
 {
     PtrToBlock Temp = (PtrToBlock)malloc(sizeof(Block));
     Temp->PreviousBlockHash = 0;
-    Temp->BlockNumber = 0;
+    Temp->BlockNumber = 1;
     Temp->Next = NULL;
     Temp->Prev = NULL;
     Temp->Nonce = (rand()%500)+1 ;
     return Temp;
+}
+
+void AddBlock(BlockChain BChain) {          //Function to add a new block to the blockchain after the previous block is filled
+    PtrToBlock newBlock = InitBlock();
+    if(BChain==NULL) {                      //When blockchain is empty
+        BChain->Head = newBlock; 
+        BChain->CurrBlock = newBlock;
+        BChain->NumBlocks = 1;
+        return;
+    }
+    PtrToBlock cur = BChain->CurrBlock;
+    newBlock->BlockNumber = cur->BlockNumber+1;
+    newBlock->PreviousBlockHash = getpreviousBlockHash(cur);
+    cur->Next = newBlock;
+    newBlock->Prev = cur;
+    BChain->CurrBlock = newBlock;
+    BChain->NumBlocks++;
 }
 
 void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)
