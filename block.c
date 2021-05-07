@@ -14,6 +14,7 @@ PtrToBlock InitBlock()
     Temp->Next = NULL;
     Temp->Prev = NULL;
     Temp->Nonce = (rand()%500)+1 ;
+    Temp->numTransaction = 0;
     return Temp;
 }
 
@@ -34,9 +35,18 @@ void AddBlock(BlockChain BChain) {          //Function to add a new block to the
     BChain->NumBlocks++;
 }
 
-void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)
+void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)  //maintains transactions for a block
 {
-     
+    if(B->CurrBlock->numTransaction == 50 ){
+        AddBlock(B);
+
+    }
+
+    B->CurrBlock->numTransaction++;
+    int transaction_number = B->CurrBlock->numTransaction;
+    B->CurrBlock->Transaction_Array[transaction_number].S_UID = S_UID;
+    B->CurrBlock->Transaction_Array[transaction_number].R_UID = R_UID;
+    B->CurrBlock->Transaction_Array[transaction_number].Amount = amount;
 }
 
 int Attack(BlockChain B)    //Head is pointer to 1st block
