@@ -2,33 +2,36 @@
 #define BLOCK_H
 #include "transaction.h" 
 
-typedef struct block Block;
-typedef Block* PtrToBlock;
+typedef struct block* Block;
 
 struct block
 {
     int BlockNumber;
     int PreviousBlockHash;   //TBD
     int Nonce;    //TBD
-    Transaction Transaction_Array[50];    
-    int numTransaction;                   // Update of no. of Transactions
+    Transaction TransactionArray[50];       //stores S_UID, R_UID, amount 
+    int numTransaction;                     // Update of no. of Transactions
 
     // need doubly link list
-    PtrToBlock Next;  
-    PtrToBlock Prev;  
+    Block Next;  
+    Block Prev;  
 };
 
 typedef struct blockChain* BlockChain;
 
-struct blockChain
+struct blockChain                           // has head block, current unfilled block, num of blocks
 {
-    PtrToBlock Head;
-    PtrToBlock CurrBlock;
+    Block Head;
+    Block CurrBlock;
     int NumBlocks;
 };
 
-PtrToBlock InitBlock();
+Block InitBlock();
+BlockChain InitBlockChain();
 
+int getpreviousBlockHash(Block block_node);
+
+void AddBlock(BlockChain B);
 void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B);
 int Attack(BlockChain B);
 // Create block function after a block is filled
