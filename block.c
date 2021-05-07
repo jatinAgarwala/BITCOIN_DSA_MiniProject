@@ -53,9 +53,37 @@ int Attack(BlockChain B)    //Head is pointer to 1st block
     return -1;              //It should never return -1, but having this as a check
 }
 
+
+int power(int base, int POW_ER)
+{
+    int ret_value = 1;
+    while(POW_ER--)
+    {
+        ret_value *= base ;         
+    }
+    return ret_value ;
+}
+
+int replace(int digit,int digit_posn, int Original_num) {
+      int Modified_num = Original_num   ;  //123456
+    Modified_num  /= power(10, digit_posn);             //1234
+    Modified_num -= Modified_num%10;      //1230
+    Modified_num += digit;        //1236
+    Modified_num *= power(10, digit_posn);   //123600
+    Modified_num += Original_num%power(10, digit_posn);
+   
+   return Modified_num  ;
+}
+
+
 //To calculate previousBlockHash of a block
 int getpreviousBlockHash(int BlockNumber, Transaction transactions, int previousBlockHash, int nonce) {
-    int base_num = previousBlockHash;       //Remember 0 case!
+          
+    
+    if(previousBlockHash==0)          // for Block 1/head block
+    previousBlockHash = 123456;
+
+    int base_num = previousBlockHash; 
 
     //Using BlockNumber 'function'
     int BlockNumberFnResult;
@@ -66,11 +94,15 @@ int getpreviousBlockHash(int BlockNumber, Transaction transactions, int previous
         BlockNumbertemp /= 10;
     }
     prod = prod%6;      //prod gives us the digit of the base_num that is to be changed
-    int newDigit = (pow(BlockNumber, 2))%10;
-    BlockNumberFnResult = base_num;     //123456
-    BlockNumberFnResult /= pow(10, prod);             //1234
-    BlockNumberFnResult -= BlockNumberFnResult%10;      //1230
-    BlockNumberFnResult += newDigit;        //1236
-    BlockNumberFnResult *= pow(10, prod);   //123600
-    BlockNumberFnResult += base_num%pow(10, prod);
+    int newDigit = (power(BlockNumber, 2))%10;
+     
+    int BlockNumberFnResult = replace(newDigit,prod,base_num);
+
+
+
+
+
+
+
+
 }
