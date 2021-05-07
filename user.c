@@ -40,7 +40,7 @@ U_transactions InitUserTransaction(int UID,double amount)   //Allocates memory f
     return Node;
 }
 
-UsersArray InitUsersArray(int UASize)
+UsersArray InitUsersArray(int UASize)      //Allocates memory for UsersArray
 {
     UsersArray tempUA = (UsersArray)malloc(sizeof(struct usersArray));
     tempUA->ArrayOfUsers = (User*)malloc(sizeof(User)*(UASize+1));
@@ -62,14 +62,14 @@ UserHashTable InitUserHashTable(int HTSize)     //Allocates memory for UserHashT
     return tempUHT;
 }
 
-void ResizeUA(UsersArray UA)
+void ResizeUA(UsersArray UA)    //Resizes the UsersArray if it gets filled
 {
     UA->ArrayOfUsers = realloc(UA->ArrayOfUsers, 2*(UA->ArraySize));
     UA->ArraySize = (UA->ArraySize)*2;
     return;
 }
 
-void DeleteUHT(UserHashTable UHT)
+void DeleteUHT(UserHashTable UHT)   //Deletes the User HashTable. This is used when we have to resize the UHT
 {
     free(UHT->UserHT);
     free(UHT);
@@ -134,7 +134,7 @@ int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable UHT)     //Takes inpu
     return UID;
 }
 
-User AddUser(UsersArray UA, UserHashTable UHT)
+User AddUser(UsersArray UA, UserHashTable UHT)  //Adds a new user, returns the pointer to the User (which also stores the randomly generated UID)
 {
     User Temp = InitUser();
     Temp->UID = AddUserUHT(UA->CurrIndex, UA, UHT);
@@ -160,7 +160,8 @@ void AddUserTH(U_transactions TH, int UID, double amount)     //Add a transactio
     return;
 }
 
-void AddUserTransaction(int S_UID, int R_UID, double amount, UsersArray UA, UserHashTable UHT)
+void AddUserTransaction(int S_UID, int R_UID, double amount, UsersArray UA, UserHashTable UHT)  //The actual function that uses previous functions to update
+                    // the User Transaction history of the users involved in a transaction
 {
     User S = FindUser(S_UID, UA, UHT);
     User R = FindUser(R_UID, UA, UHT);
