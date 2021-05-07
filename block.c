@@ -98,11 +98,20 @@ int getpreviousBlockHash(int BlockNumber, Transaction transactions, int previous
      
     int BlockNumberFnResult = replace(newDigit,prod,base_num);
 
+    int tmp1,tmp2,tmp_sum=0;
+    for(int i=0;i<50;i++)
+    {
+        tmp1 =  transactions[i].S_UID + transactions[i].R_UID ; 
+        tmp1 *= ( (int) transactions[i].Amount/50 ) % power(10,7) ;
+        tmp_sum  += tmp1  ;
+    }
+
+        tmp_sum = tmp_sum%6 ;
+        int tmp_sum1 = tmp_sum%6;
+        int transation_results = replace(tmp_sum % 10,tmp_sum1,base_num);//replace digit in previousBlockhash
+
+        int NewBlockHash = (BlockNumberFnResult + transation_results + nonce) % power(10,7);
 
 
-
-
-
-
-
+    return NewBlockHash;
 }

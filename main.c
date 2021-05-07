@@ -42,13 +42,19 @@ int main()
                 
                 break;
             case 2:
-
+                
                 break;
             case 3:
-
+                int attack = Attack(B);
+                if(attack != -1){
+                    printf("Attacked succesfully\n");
+                }
+                else{
+                    printf("Attack failed\n");
+                }
                 break;
             case 4:
-
+                
                 break;
             case 5:
 
