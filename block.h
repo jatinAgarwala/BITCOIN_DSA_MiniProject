@@ -9,8 +9,8 @@ struct block
     int BlockNumber;
     int PreviousBlockHash;   //TBD
     int Nonce;    //TBD
-    Transaction TransactionArray[50];       //stores S_UID, R_UID, amount 
-    int numTransaction;                     // Update of no. of Transactions
+    Transaction TransactionArray[50];    
+    int numTransaction;                   // Update of no. of Transactions
 
     // need doubly link list
     Block Next;  
@@ -19,7 +19,7 @@ struct block
 
 typedef struct blockChain* BlockChain;
 
-struct blockChain                           // has head block, current unfilled block, num of blocks
+struct blockChain
 {
     Block Head;
     Block CurrBlock;

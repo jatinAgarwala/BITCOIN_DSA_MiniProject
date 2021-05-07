@@ -6,7 +6,7 @@
 #include <time.h>
 #include <math.h>
 
-Block InitBlock()       // a node initialized (not added,updated,linked yet)
+Block InitBlock()
 {
     Block Temp = (Block)malloc(sizeof(struct block));
     Temp->PreviousBlockHash = 0;
@@ -35,13 +35,13 @@ void AddBlock(BlockChain B)        //Function to add a new block to the blockcha
         B = InitBlockChain();
         return;
     }
-    Block cur = B->CurrBlock;                                        // if head block is filled
-    newBlock->BlockNumber = cur->BlockNumber+1;                      // Mention the Blocknumber of the newblock
-    newBlock->PreviousBlockHash = getpreviousBlockHash(cur);         // get the prevBlockhash for the new block
-    cur->Next = newBlock;            // make links    block 3 ---> block 4 
-    newBlock->Prev = cur;            // make link backwards     bloc 3  <--- block 4
-    B->CurrBlock = newBlock;         // update that now the currBlock in the Blockchain is the new block 
-    B->NumBlocks++;                  // update the number of blocks in the blockchain as now we added a newblock
+    Block cur = B->CurrBlock;
+    newBlock->BlockNumber = cur->BlockNumber+1;
+    newBlock->PreviousBlockHash = getpreviousBlockHash(cur);
+    cur->Next = newBlock;
+    newBlock->Prev = cur;
+    B->CurrBlock = newBlock;
+    B->NumBlocks++;
     return;
 }
 
@@ -49,14 +49,14 @@ void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)  //main
 {
     if(B->CurrBlock->numTransaction == 50 )
     {
-        AddBlock(B);     // if its filled we need to add a newblock. This also update the currBlock of the blockchain as the new block
+        AddBlock(B);
     }
 
     int transaction_number = B->CurrBlock->numTransaction;
-    B->CurrBlock->TransactionArray[transaction_number]->S_UID = S_UID;      // add info of the transaction
+    B->CurrBlock->TransactionArray[transaction_number]->S_UID = S_UID;
     B->CurrBlock->TransactionArray[transaction_number]->R_UID = R_UID;
     B->CurrBlock->TransactionArray[transaction_number]->Amount = amount;
-    B->CurrBlock->numTransaction++;     // now update the num of transactions by 1
+    B->CurrBlock->numTransaction++;
     return;
 }
 
@@ -100,7 +100,7 @@ int Attack(BlockChain B)    //Head is pointer to 1st block
     return -1;              //It should never return -1, but having this as a check
 }
 
- // function of use only in getpreviousBlockhash
+
 int power(int base, int POW_ER)
 {
     int ret_value = 1;
@@ -111,7 +111,6 @@ int power(int base, int POW_ER)
     return ret_value ;
 }
 
- // function of use only in getpreviousBlockhash
 int replace(int digit,int digit_posn, int Original_num) 
 {
     int Modified_num = Original_num   ;                 //123456
@@ -134,7 +133,7 @@ int getpreviousBlockHash(Block block_node) // block_node = ptr to the previous b
     int previousBlockHash = block_node->PreviousBlockHash;
     int nonce = block_node->Nonce ;
     
-    if(previousBlockHash==0)          // for Block 1 or head block
+    if(previousBlockHash==0)          // for Block 1/head block
     previousBlockHash = 123456;
 
     int base_num = previousBlockHash; 
