@@ -19,7 +19,7 @@ PtrToBlock InitBlock()
 
 void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)
 {
-    
+     
 }
 
 int Attack(BlockChain B)    //Head is pointer to 1st block

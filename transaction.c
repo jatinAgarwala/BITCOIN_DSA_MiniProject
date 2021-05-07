@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-int Transact(int S_UID, int R_UID, int amount, BlockChain B /*,UserHashTable UHT*/)
+int Transact(int S_UID, int R_UID, int amount, BlockChain B /*,UserHashTable UHT*/)   
 {
     User sender = FindUser(S_UID,UHT);  //Ht = data structure containing users
 
