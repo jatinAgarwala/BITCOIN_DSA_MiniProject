@@ -39,10 +39,25 @@ int main()
                 printf("Thank you for using our Bitcoin software.\nHave a nice day!\n");
                 break;
             case 1:
-                
+                User userPtr InitUser();
+
                 break;
             case 2:
-                
+                int S_UID, R_UID;
+                double Amount;
+                //printf("Enter your UID: ");
+                scanf("%d", &S_UID);
+                //printf("Enter receiver UID: ");
+                scanf("%d", &R_UID);
+                //printf("Enter the Transaction Amount: ");
+                scanf("%lf", &Amount);
+                int is_transact = Transact(S_UID,R_UID, amount, B);//B is pointer to First Block
+                if(is_transact != -1){
+                    printf("Transaction succesful\n");
+                }
+                else{
+                    printf("Transaction failed\n");
+                }
                 break;
             case 3:
                 int attack = Attack(B);
