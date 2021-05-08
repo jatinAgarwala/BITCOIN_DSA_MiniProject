@@ -5,7 +5,7 @@
 #include "user.h"
 #include "block.h"
 
-int UI_AddUser(UsersArray UA, UserHashTable UHT);
+int UI_AddUser(UsersArray UA, UserHashTable UHT, double InitialBalance);
 void UI_Transact(BlockChain B, UsersArray UA, UserHashTable UHT);
 void UI_Attack(BlockChain B);
 int UI_ValidateBlockChain(BlockChain B);

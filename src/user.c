@@ -7,8 +7,6 @@
 int MOD_UID = 90000000;
 int MIN_UID = 100000000;
 
-double InitialBalance = 1000;
-
 char * Get_JoinDateTime()       // returns time in Day, Month/date time in hh:mm:ss year
 {
     time_t rawtime;
@@ -23,7 +21,7 @@ char * Get_JoinDateTime()       // returns time in Day, Month/date time in hh:mm
 User InitUser()     //Allocates memory for a new user
 {
     User temp = (User)malloc(sizeof(struct user));
-    temp->Balance = InitialBalance;
+    temp->Balance = 0;
     temp->JoinDateTime = Get_JoinDateTime();
     temp->TransactionHistory = InitU_Transaction(); 
     return temp;
@@ -136,9 +134,10 @@ int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable UHT)     //Takes inpu
     return UID;
 }
 
-User AddUser(UsersArray UA, UserHashTable UHT)  //Adds a new user, returns the pointer to the User (which also stores the randomly generated UID)
+User AddUser(UsersArray UA, UserHashTable UHT, double InitialBalance)  //Adds a new user, returns the pointer to the User (which also stores the randomly generated UID)
 {
     User Temp = InitUser();
+    Temp->Balance = InitialBalance;
     Temp->UID = AddUserUHT(UA->CurrIndex, UA, UHT);
     //printf("New User UID = %d\n",Temp->UID);
     UA->ArrayOfUsers[UA->CurrIndex] = Temp;

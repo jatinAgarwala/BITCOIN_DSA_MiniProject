@@ -46,11 +46,12 @@ void DeleteUHT(UserHashTable UHT);
 
 int UserHashFunction(int UID, UserHashTable UHT);
 
+User AddUser(UsersArray UA, UserHashTable UHT, double InitialBalance);
 int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable UHT);  
 void AddUserTH(U_transactions TH  ,int UID, double amount);
 int* SearchUHT(int UID, UserHashTable UHT);
 
-User AddUser(UsersArray UA, UserHashTable UHT);
+
 User FindUser(int UID, UsersArray UA, UserHashTable UHT);
 void AddUserTransaction(int S_UID, int R_UID, double amount, UsersArray UA, UserHashTable UHT);
 
