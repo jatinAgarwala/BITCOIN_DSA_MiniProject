@@ -45,7 +45,7 @@ void AddBlock(BlockChain B)        //Function to add a new block to the blockcha
     return;
 }
 
-void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B)  //maintains transactions for a block
+void AddBlockTransaction(int S_UID, int R_UID, double amount, BlockChain B)  //maintains transactions for a block
 {
     if(B->CurrBlock->numTransaction == 50 )
     {
@@ -100,7 +100,7 @@ int Attack(BlockChain B)    //Head is pointer to 1st block
     return -1;              //It should never return -1, but having this as a check
 }
 
-
+//This is used by the getPreviousBlockHash function
 int power(int base, int POW_ER)
 {
     int ret_value = 1;
@@ -111,6 +111,7 @@ int power(int base, int POW_ER)
     return ret_value ;
 }
 
+//This is used by the getPreviousBlockHash function
 int replace(int digit,int digit_posn, int Original_num) 
 {
     int Modified_num = Original_num   ;                 //123456
@@ -197,7 +198,6 @@ int Validate_BlockChain(BlockChain Chain)   //Iterates from first block to secon
             }
         }
         ptr = ptr->Next;
-    }  
-    
+    }
     return flag;
 }

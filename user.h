@@ -2,6 +2,7 @@
 #define _USER_H
 
 #include "transaction.h"
+#include "block.h"
 
 typedef struct user* User;
 typedef struct usersArray* UsersArray;

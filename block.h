@@ -7,9 +7,9 @@ typedef struct block* Block;
 struct block
 {
     int BlockNumber;
-    int PreviousBlockHash;   //TBD
-    int Nonce;    //TBD
-    Transaction TransactionArray[50];    
+    int PreviousBlockHash;                // HashFunction value of previous block
+    int Nonce;                            // Randomly generated number between 1-500
+    Transaction TransactionArray[50];     // Transaction History of the Block
     int numTransaction;                   // Update of no. of Transactions
 
     // need doubly link list
@@ -32,7 +32,9 @@ BlockChain InitBlockChain();
 int getpreviousBlockHash(Block block_node);
 
 void AddBlock(BlockChain B);
-void AddBlockTransaction(int S_UID, int R_UID, int amount, BlockChain B);
+void AddBlockTransaction(int S_UID, int R_UID, double amount, BlockChain B);
+
 int Attack(BlockChain B);
-// Create block function after a block is filled
+int Validate_BlockChain(BlockChain Chain)
+
 #endif
