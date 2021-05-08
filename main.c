@@ -31,7 +31,7 @@ int main()
         printf("5 Print the Information of the current Block\n");   //Info on the current block
         printf("6 Print the Information of a Block\n"); //Info about any particular block
         printf("7 Print the Information of a User\n");  //Info about a user in the system {Including Transaction history????}
-        printf("8 Print UIDs of all Users\n");  //Prints the list of UIDs for all Users in the system
+        printf("8 Print UIDs and wallet balance of all Users\n");  //Prints the list of UIDs for all Users in the system
         printf("9 Print Number of Blocks\n\n"); //Prints the numbers of blocks comprising the blockchain
         printf("Choose which function you want to execute (0 - 9) : ");
 
