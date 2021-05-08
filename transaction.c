@@ -1,8 +1,4 @@
-#include "transaction.h"
-#include "user.h"
-#include "block.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "libs.h"
 
 // if user->balance >= Amount then deduct
 // if not return -1

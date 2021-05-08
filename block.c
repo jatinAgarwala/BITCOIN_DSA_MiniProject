@@ -1,10 +1,4 @@
-#include "block.h"
-#include "transaction.h"
-#include "user.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
+#include "libs.h"
 
 Block InitBlock()
 {

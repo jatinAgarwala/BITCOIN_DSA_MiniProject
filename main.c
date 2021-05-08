@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "block.h"
-#include "transaction.h"
-#include "user.h"
-#include "UI.h"
+#include "libs.h"
 
 #define UHTsize 1000
 #define UAsize 1000

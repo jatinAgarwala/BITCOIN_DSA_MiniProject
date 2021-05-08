@@ -1,8 +1,7 @@
 #ifndef _Transaction_H
 #define _Transaction_H
 
-#include "block.h"
-#include "user.h"
+#include "libs.h"
 
 typedef struct transaction* Transaction; 
 

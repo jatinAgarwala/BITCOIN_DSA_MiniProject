@@ -1,6 +1,8 @@
 #ifndef __UI_H
 #define __UI_H
 
+#include "libs.h"
+
 int UI_AddUser(UsersArray UA, UserHashTable UHT);
 void UI_Transact(BlockChain B, UsersArray UA, UserHashTable UHT);
 void UI_Attack(BlockChain B);

@@ -1,6 +1,7 @@
 #ifndef BLOCK_H
 #define BLOCK_H
-#include "transaction.h" 
+
+#include "libs.h" 
 
 typedef struct block* Block;
 

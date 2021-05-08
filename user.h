@@ -1,8 +1,7 @@
 #ifndef _USER_H
 #define _USER_H
 
-#include "transaction.h"
-#include "block.h"
+#include "libs.h"
 
 typedef struct user* User;
 typedef struct usersArray* UsersArray;

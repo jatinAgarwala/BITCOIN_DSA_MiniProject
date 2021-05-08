@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
-#include "user.h"
+#include "libs.h"
 
 int MOD_UID = 90000000;
 int MIN_UID = 100000000;

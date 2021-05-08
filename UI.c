@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "UI.h"
-#include "block.h"
-#include "transaction.h"
-#include "user.h"
+#include "libs.h"
 
 int UI_AddUser(UsersArray UA, UserHashTable UHT) {
     User newUser = AddUser(UA, UHT);
