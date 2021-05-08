@@ -67,7 +67,7 @@ void UI_PrintInfoBlock(BlockChain B) {
     scanf("%d", &blockNumber);
     Block ptr = B->Head;
     while(ptr!=NULL) {
-        if(ptr->BlockNumber==BlockNumber) {
+        if(ptr->BlockNumber==blockNumber) {
             printf("\tBlock number: %d\n", ptr->BlockNumber);
             printf("\tpreviousBlockHash: %d\n", ptr->PreviousBlockHash);
             printf("\tNonce: %d\n", ptr->Nonce);
