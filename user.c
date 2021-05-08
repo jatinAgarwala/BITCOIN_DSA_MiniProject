@@ -1,9 +1,13 @@
-#include "libs.h"
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
+#include "user.h"
 
 int MOD_UID = 90000000;
 int MIN_UID = 100000000;
 
-const double InitialBalance = 1000;
+double InitialBalance = 1000;
 
 char * Get_JoinDateTime()       // returns time in Day, Month/date time in hh:mm:ss year
 {
@@ -21,7 +25,7 @@ User InitUser()     //Allocates memory for a new user
     User temp = (User)malloc(sizeof(struct user));
     temp->Balance = InitialBalance;
     temp->JoinDateTime = Get_JoinDateTime();
-    temp->TransactionHistory = NULL ; 
+    temp->TransactionHistory = InitU_Transaction(); 
     return temp;
 }
 
@@ -134,7 +138,7 @@ User AddUser(UsersArray UA, UserHashTable UHT)  //Adds a new user, returns the p
 {
     User Temp = InitUser();
     Temp->UID = AddUserUHT(UA->CurrIndex, UA, UHT);
-    printf("New User UID = %d\n",Temp->UID);
+    //printf("New User UID = %d\n",Temp->UID);
     UA->ArrayOfUsers[UA->CurrIndex] = Temp;
     UA->CurrIndex++;
     if(UA->CurrIndex == UA->ArraySize)

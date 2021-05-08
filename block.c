@@ -1,4 +1,8 @@
-#include "libs.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+#include "block.h"
 
 Block InitBlock()
 {
@@ -9,6 +13,9 @@ Block InitBlock()
     Temp->Prev = NULL;
     Temp->Nonce = (rand()%500)+1 ;
     Temp->numTransaction = 0;
+    for(int i=0;i<50;i++)
+        Temp->TransactionArray[i] = InitTransaction();
+        
     return Temp;
 }
 
@@ -194,4 +201,23 @@ int Validate_BlockChain(BlockChain Chain)   //Iterates from first block to secon
         ptr = ptr->Next;
     }
     return flag;
+}
+
+int Transact(int S_UID, int R_UID, double amount, BlockChain B, UsersArray UA ,UserHashTable UHT)   
+{
+    User sender = FindUser(S_UID, UA, UHT);  //Ht = data structure containing users
+
+    if(sender->Balance >= amount)   //Checks if transactable amount is permissible by observing user balance
+    {
+        sender->Balance -= amount;  //Amount deducted/added from sender
+        User receiver = FindUser(R_UID, UA, UHT);   //Searches for reciever through the user list
+        receiver->Balance += amount;    //Amount added/deducted from reciever
+
+        AddUserTransaction(S_UID, R_UID, amount, UA, UHT);  //Updates transaction for users
+        AddBlockTransaction(S_UID, R_UID, amount, B);   //Updates transaction in the block
+        return 1;
+    }
+    else
+        return 0;   //If transaction is not viable, it returns a value signifying that the transaction has failed
+    return 1;
 }

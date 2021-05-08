@@ -1,11 +1,13 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include "libs.h" 
+#include "transaction.h"
+#include "user.h"
 
 typedef struct block* Block;
+typedef struct blockChain* BlockChain;
 
-struct block    // Created a structure for Block
+struct block
 {
     int BlockNumber;
     int PreviousBlockHash;                // HashFunction value of previous block
@@ -13,29 +15,29 @@ struct block    // Created a structure for Block
     Transaction TransactionArray[50];     // Transaction History of the Block
     int numTransaction;                   // Update of no. of Transactions
 
-    // need doubly link list to traverse both ways
+    // need doubly link list
     Block Next;  
     Block Prev;  
 };
 
-typedef struct blockChain* BlockChain;
-
-struct blockChain   //Creates Blockchain
+struct blockChain
 {
-    Block Head; //Head of the blockchain(?)
-    Block CurrBlock;    //Current block
-    int NumBlocks;  //Number of blocks in chain
+    Block Head;
+    Block CurrBlock;
+    int NumBlocks;
 };
 
-Block InitBlock();  //Initializes a block
-BlockChain InitBlockChain();    //Initializes a blockchain
+Block InitBlock();
+BlockChain InitBlockChain();
 
-int getpreviousBlockHash(Block block_node); //Obtains hash values for the previous block (to verify nonce stuff??????)
+int getpreviousBlockHash(Block block_node);
 
-void AddBlock(BlockChain B);    //Initialized AddBlock function to add a block to the blockchain
-void AddBlockTransaction(int S_UID, int R_UID, double amount, BlockChain B);    //Initialized AddBlockTransaction so that it Adds a block transaction
+void AddBlock(BlockChain B);
+void AddBlockTransaction(int S_UID, int R_UID, double amount, BlockChain B);
 
-int Attack(BlockChain B);   // Initialized function to attack a blockchain
-int Validate_BlockChain(BlockChain Chain)   // Initialized function to validate blockchain
+int Attack(BlockChain B);
+int Validate_BlockChain(BlockChain Chain);
+
+int Transact(int S_UID, int R_UID, double amount, BlockChain B, UsersArray UA, UserHashTable UHT);   // Initializing the Transact function
 
 #endif

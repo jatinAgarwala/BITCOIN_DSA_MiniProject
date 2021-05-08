@@ -1,4 +1,10 @@
-#include "libs.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "UI.h"
+#include "block.h"
+#include "transaction.h"
+#include "user.h"
 
 int UI_AddUser(UsersArray UA, UserHashTable UHT) 
 {
@@ -88,6 +94,7 @@ void UI_PrintInfoBlock(BlockChain B)
         }
         ptr = ptr->Next;
     }
+    printf("Sorry... Invalid Block Number\n");
     return;
 }
 
@@ -113,9 +120,9 @@ void UI_PrintUserInfo(UsersArray UA , UserHashTable UHT)
     while(ptr!=NULL) 
     {
         if(ptr->Amount > 0)
-            printf("Received %lg from %d\n",ptr->Amount,ptr->UID);
+            printf("\t\tReceived %lg from %d\n",ptr->Amount,ptr->UID);
         else if(ptr->Amount < 0)
-            printf("Sent %lg to %d\n",(ptr->Amount)*(-1),ptr->UID);
+            printf("\t\tSent %lg to %d\n",(ptr->Amount)*(-1),ptr->UID);
         // printf("\t\tUID: %d\n", ptr->UID);
         // printf("\t\tAmount: %lg\n", ptr->Amount);
         ptr = ptr->Next;
@@ -135,6 +142,6 @@ void UI_PrintAll_UIDs(UsersArray UA)
 
 void UI_PrintNumBlocks(BlockChain B) 
 {
-    printf("Number of blocks in blockchain: %d", B->NumBlocks);
+    printf("Number of Blocks in BlockChain: %d\n", B->NumBlocks);
     return;
 }

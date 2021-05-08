@@ -1,27 +1,25 @@
 #ifndef _Transaction_H
 #define _Transaction_H
 
-#include "libs.h"
-
 typedef struct transaction* Transaction; 
+typedef struct user_transactions* U_transactions;
 
-struct transaction  // creating a struct that records a transaction performed/requested between users
+struct transaction
 {
-    int S_UID ; //Sender Credentials
-    int R_UID ; //Reciever Credentials
-    double Amount ; // Amount to be Transferred
+    int S_UID ;
+    int R_UID ;
+    double Amount ;
     Transaction Next;       //For the U_Transactions
 };
 
-typedef struct user_transactions* U_transactions;
-
-struct user_transactions // creating a struct that records transaction of user
+struct user_transactions 
 {
-    int UID;    // User Credentials
-    double Amount;  // Amount used in transaction
-    U_transactions Next; // Next set of Transactions
+    int UID;
+    double Amount;
+    U_transactions Next; 
 };
 
-int Transact(int S_UID, int R_UID, double amount, BlockChain B, UsersArray UA, UserHashFunction UHT);   // Initializing the Transact function
+Transaction InitTransaction();
+U_transactions InitU_Transaction();
 
 #endif

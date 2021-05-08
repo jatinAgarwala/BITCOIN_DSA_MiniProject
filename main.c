@@ -1,12 +1,19 @@
-#include "libs.h"
+#include "transaction.h"
+#include "user.h"
+#include "block.h"
+#include "UI.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 #define UHTsize 1000
 #define UAsize 1000
 
-double InitialBalance;
-
 int main()
 {
+    double InitialBalance;
+
     BlockChain B = InitBlockChain();    //Creating a blockchain
     UserHashTable UHT = InitUserHashTable(UHTsize); //Creating a UserHashTable
     UsersArray UA = InitUsersArray(UAsize); //Creating an Array where UserInfo is stored
@@ -16,13 +23,13 @@ int main()
     printf("\t\t\t-------\t\t\n\n\n");
 
     printf("Choose the amount that every new user will have: ");    // Setting a default Balance amount that will be applicable for all users
-    scanf("%Ld", &InitialBalance);
+    scanf("%lf", &InitialBalance);
 
     int choice = -1;
 
     while(choice != 0)
     {
-        printf("The following functions are supported:\n"); // Using numbers to perform a certian transaction corresponding to its value
+        printf("\nThe following functions are supported:\n"); // Using numbers to perform a certian transaction corresponding to its value
         printf("0 Exit\n"); //Exits the program
         printf("1 Add user to the system\n");   // Adds a user to the system
         printf("2 Transact\n");  // Performs a transaction
