@@ -1,14 +1,14 @@
-#include "transaction.h"
-#include "user.h"
-#include "block.h"
-#include "UI.h"
+#include "../include/transaction.h"
+#include "../include/user.h"
+#include "../include/block.h"
+#include "../include/UI.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 
-#define UHTsize 1000
-#define UAsize 1000
+#define UHTsize 1000003
+#define UAsize 1000003
 
 int main()
 {

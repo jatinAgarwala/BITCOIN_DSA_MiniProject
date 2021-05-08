@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <math.h>
-#include "block.h"
+#include "../include/block.h"
 
 Block InitBlock()
 {
@@ -157,9 +156,10 @@ int getpreviousBlockHash(Block block_node) // block_node = ptr to the previous b
     int tmp1,tmp2,tmp_sum=0;
     for(int i=0;i<50;i++)
     {
-        tmp1 =  transactions[i]->S_UID + transactions[i]->R_UID ; 
-        tmp1 *= ( (int) transactions[i]->Amount/50 ) % power(10,7) ;
-        tmp_sum  += tmp1  ;
+        tmp1 =  (transactions[i]->S_UID + transactions[i]->R_UID)%power(10, 7) ; 
+        tmp2 = ((int) transactions[i]->Amount)/50;
+        tmp1 = (tmp1*tmp2)%power(10, 7);
+        tmp_sum = (tmp_sum+tmp1)%power(10, 7);
     }
 
     tmp_sum = tmp_sum%6 ;

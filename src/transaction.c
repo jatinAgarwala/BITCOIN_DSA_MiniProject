@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "transaction.h"
+#include "../include/transaction.h"
 
 Transaction InitTransaction()
 {

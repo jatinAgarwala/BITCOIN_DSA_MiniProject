@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "UI.h"
-#include "block.h"
-#include "transaction.h"
-#include "user.h"
+#include "../include/UI.h"
+#include "../include/block.h"
+#include "../include/transaction.h"
+#include "../include/user.h"
 
 int UI_AddUser(UsersArray UA, UserHashTable UHT) 
 {
@@ -17,10 +17,25 @@ void UI_Transact(BlockChain B, UsersArray UA, UserHashTable UHT)
 {
     int S_UID, R_UID;
     double Amount;
+    
     printf("Enter sender's UID: ");
     scanf("%d", &S_UID);
+    User S = FindUser(S_UID,UA,UHT);
+    if(S == NULL || S->UID != S_UID)
+    {
+        printf("Sorry... Invalid UID\n");
+        return;
+    }
+
     printf("Enter receiver's UID: ");
     scanf("%d", &R_UID);
+    User R = FindUser(R_UID,UA,UHT);
+    if(R == NULL || R->UID != R_UID)
+    {
+        printf("Sorry... Invalid UID\n");
+        return;
+    }
+
     printf("Enter the Transaction Amount: ");
     scanf("%lf", &Amount);
     int validTransaction = Transact(S_UID, R_UID, Amount, B, UA, UHT);
@@ -28,7 +43,7 @@ void UI_Transact(BlockChain B, UsersArray UA, UserHashTable UHT)
     if(validTransaction) 
         printf("Transaction was successful\n");
     else 
-        printf("Transaction failed\n");
+        printf("Transaction failed due to insufficient Balance\n");
     return;
 }
 
@@ -104,6 +119,13 @@ void UI_PrintUserInfo(UsersArray UA , UserHashTable UHT)
     printf("Enter UID: ");
     scanf("%d", &UID);
     User userptr = FindUser(UID, UA, UHT);
+
+    if(userptr == NULL || userptr->UID != UID)
+    {
+        printf("Sorry... Invalid UID\n");
+        return;
+    }
+
     printf("User details -\n");
     printf("\tUID: %d\n", UID);
     printf("\tBalance: %lg\n", userptr->Balance);

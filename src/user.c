@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#include "user.h"
+#include "../include/user.h"
 
 int MOD_UID = 90000000;
 int MIN_UID = 100000000;
@@ -44,6 +44,8 @@ UsersArray InitUsersArray(int UASize)      //Allocates memory for UsersArray
 {
     UsersArray tempUA = (UsersArray)malloc(sizeof(struct usersArray));
     tempUA->ArrayOfUsers = (User*)malloc(sizeof(User)*(UASize+1));
+    for(int i=0;i<UASize;i++)
+        tempUA->ArrayOfUsers[i]=NULL;
     tempUA->ArraySize = UASize;
     tempUA->CurrIndex = 0;
     return tempUA;
@@ -149,6 +151,8 @@ User AddUser(UsersArray UA, UserHashTable UHT)  //Adds a new user, returns the p
 User FindUser(int UID, UsersArray UA, UserHashTable UHT)    //Uses UID to return the pointer to the struct user that stores the information
 {
     int* index = SearchUHT(UID, UHT);
+    if(*index == -1)
+        return NULL;
     return UA->ArrayOfUsers[*index];
 }
 
