@@ -122,6 +122,9 @@ to generate a Hash value    (***TBD*** Which Hash function to use)
 
 ## FILES
 
+### libs.h
+Contains: #includes all other header files of the repo, and standard header files needed
+
 ### block.h
 Contains:
   1. struct block (typedefed as Block)
