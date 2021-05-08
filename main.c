@@ -31,7 +31,7 @@ int main()
         printf("5 Print the Information of the current Block\n");
         printf("6 Print the Information of a Block\n");
         printf("7 Print the Information of a User\n");
-        printf("8 Print UIDs of all Users\n");
+        printf("8 Print UIDs and Wallet Balance of all Users\n");
         printf("9 Print Number of Blocks\n\n");
         printf("Choose which function you want to execute (0 - 9) : ");
 
