@@ -36,6 +36,12 @@ void UI_Transact(BlockChain B, UsersArray UA, UserHashTable UHT)
         return;
     }
 
+    if(S_UID == R_UID)
+    {
+        printf("You cannot transact with yourself xD\n");
+        return;
+    }
+
     printf("Enter the Transaction Amount: ");
     scanf("%lf", &Amount);
     int validTransaction = Transact(S_UID, R_UID, Amount, B, UA, UHT);
@@ -142,9 +148,9 @@ void UI_PrintUserInfo(UsersArray UA , UserHashTable UHT)
     while(ptr!=NULL) 
     {
         if(ptr->Amount > 0)
-            printf("\t\tReceived %lg from %d\n",ptr->Amount,ptr->UID);
+            printf("\t\tReceived %lg BTC from %d\n",ptr->Amount,ptr->UID);
         else if(ptr->Amount < 0)
-            printf("\t\tSent %lg to %d\n",(ptr->Amount)*(-1),ptr->UID);
+            printf("\t\tSent %lg BTC to %d\n",(ptr->Amount)*(-1),ptr->UID);
         // printf("\t\tUID: %d\n", ptr->UID);
         // printf("\t\tAmount: %lg\n", ptr->Amount);
         ptr = ptr->Next;
