@@ -29,7 +29,7 @@ void printMenu()
 
 int main()
 {
-    double InitialBalance;
+    double InitialBalance = 0;
     srand(time(NULL));
     
     BlockChain B = InitBlockChain();    //Creating a blockchain
@@ -41,6 +41,13 @@ int main()
 
     printf("Choose the amount that every new user will have: ");    // Setting a default Balance amount that will be applicable for all users
     scanf("%lf", &InitialBalance);
+
+    while(InitialBalance <= 0)
+    {
+        printf("The initial balance must be a positive value.\n");
+        printf("\nChoose the amount that every new user will have: ");
+        scanf("%lf", &InitialBalance);
+    }
 
     int choice = -1;
 
