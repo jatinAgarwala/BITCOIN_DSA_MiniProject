@@ -1,5 +1,5 @@
 # BITCOIN_DSA_MiniProject
-This is the repository for group 9 of the Data Structures and Algorithms MiniProject for the UG1 students of IIIT Hyderabad during the year 2020-21. Our topic is-
+This is the repository for group 9 of the Data Structures and Algorithms MiniProject for the UG1 students of IIIT Hyderabad during the year 2020-21.  
 
 # COMPILATION INSTRUCTIONS
 Users can execute the following steps to compile and use the Bitcoin software :  
