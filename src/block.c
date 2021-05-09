@@ -115,12 +115,13 @@ int power(int base, int POW_ER)
 //This is used by the getPreviousBlockHash function
 int replace(int digit,int digit_posn, int Original_num) 
 {
-    int Modified_num = Original_num   ;                 //123456
-    Modified_num  /= power(10, digit_posn);             //1234
+    int temp_num =  power(10, digit_posn)  ;         
+    int Modified_num = Original_num   ;                 //123456  (if the number is)
+    Modified_num  /= temp_num ;                         //1234
     Modified_num -= Modified_num%10;                    //1230
     Modified_num += digit;                              //1236
-    Modified_num *= power(10, digit_posn);              //123600
-    Modified_num += Original_num%power(10, digit_posn);
+    Modified_num *= temp_num;                           //123600
+    Modified_num += Original_num%temp_num;              //123656
    
    return Modified_num  ;
 }
