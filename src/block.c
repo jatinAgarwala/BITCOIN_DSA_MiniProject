@@ -5,6 +5,7 @@
 
 Block InitBlock()
 {
+    srand(time(0));
     Block Temp = (Block)malloc(sizeof(struct block));
     Temp->PreviousBlockHash = 0;
     Temp->BlockNumber = 1;
@@ -62,6 +63,7 @@ void AddBlockTransaction(int S_UID, int R_UID, double amount, BlockChain B)  //m
 
 int Attack(BlockChain B)    //Head is pointer to 1st block
 {
+    srand(time(0));
     Block head = B->Head;           // head ptr
     int randnum = (rand()%50) + 1;  //random number
     
