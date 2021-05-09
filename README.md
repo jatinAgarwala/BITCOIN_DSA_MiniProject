@@ -130,7 +130,7 @@ Data Structure - struct which stores the following information-
   4. NextTransaction (pointer to TransactionInfo) //Will be used for implementing TransactionHistory of each user
 
 **USERS-INFORMATION**
-Data Structure - Array of UserInfo (***TBD***)
+Data Structure - Array of UserInfo
 
 **UserInfo**
 Data Structure - struct which stores the following information-
@@ -139,38 +139,6 @@ Data Structure - struct which stores the following information-
   3. TransactionHistory (Linked List of TransactionInfo)
   4. JoinDateTime ( char * )
 
-## Functions
-
-**AddUser**
-Assigns a fixed value to the balance of the new user (***TBD***)
-Initialises the node of the TransactionHistory
-Accesses systime to generate the JoinDateTime of the user
-
-**Transact**
-Takes input SenderUID, ReceiverUID and Amount
-Checks if Sender's Balance >= Amount, and both UID's are valid, Decline Transaction if not
-Add the Transaction to Current Block
-  If current transaction in current Block == 50th transaction, Initialise a new block
-Update the TransactionHistory of the Sender and Receiver
-
-**CreateBlock**
-Creates a new Block and adds it to the BlockChain
-Assigns a random integer between 1 and 500 to Nonce
-Calculates PreviousBlockHash using HashFunction
-
-**Attack**
-Generate a random number between 1 to 50
-Check if number of blocks >= randomNum, Attack fails if not
-Modify the Nonce of the Block
-
-**ValidateBlockChain**
-Iterate over the BlockChain
-Chaeck if the PreviousBlockHash matches the output of the Hash Function
-  If not, adjust it's Nonce   (***TBD*** How to find the correct Nonce)
-  
-**HashFunction**
-Uses the information of a Block- BlockNumber, Transactions, PreviousBlockHash, Nonce (of the Previous Block)
-to generate a Hash value    (***TBD*** Which Hash function to use)
 
 ## FILES
 
