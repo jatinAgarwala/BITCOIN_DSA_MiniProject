@@ -28,10 +28,11 @@ int test_Transact(BlockChain B, UsersArray* UA, UserHashTable* UHT, double Initi
     User R = AddUser(UA, UHT, InitialBalance);
     double Amount;
     double SInitialBalance = S->Balance;
+    double RInitialBalance = R->Balance;
     Amount = rand()%((int)S->Balance);
     int transactionResult = Transact(S->UID, R->UID, Amount, B, *UA, *UHT);
     if(transactionResult==1) {          //this should always be the case
-        if(S->Balance+Amount==SInitialBalance) {
+        if(S->Balance+Amount==SInitialBalance &&R->Balance-Amount==RInitialBalance) {
             printf("Test Transact function has passed\n");
             return 1;
         }
@@ -60,11 +61,11 @@ int test_Attack(BlockChain B, UsersArray* UA, UserHashTable* UHT, double Initial
     int i=0;
     while(ptr!=NULL) {
         prevNonceVals[i] = ptr->Nonce;
-        printf("%d ", prevNonceVals[i]);
+       // printf("%d ", prevNonceVals[i]);
         i++;
         ptr = ptr->Next;
     }
-    printf("\n");
+   // printf("\n");
     int Result = 0;
     int attackResult = Attack(B);
     if(attackResult>0) {

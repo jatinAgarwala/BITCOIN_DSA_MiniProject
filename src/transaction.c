@@ -8,7 +8,6 @@ Transaction InitTransaction()
     temp->S_UID = -1;
     temp->R_UID = -1;
     temp->Amount = 0;
-    temp->Next = NULL;
     return temp;
 }
 
