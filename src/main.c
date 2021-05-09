@@ -10,6 +10,23 @@
 #define UHTsize 1000003
 #define UAsize 1000003
 
+void printMenu()
+{
+    printf("\nThe following functions are supported:\n");           // Using numbers to perform a certian transaction corresponding to its value
+    printf("0 Exit\n");                                             //Exits the program
+    printf("1 Add user to the system\n");                           // Adds a user to the system
+    printf("2 Transact\n");                                         // Performs a transaction
+    printf("3 Attack\n");                                           // Performs the attack function that may alter nonce values
+    printf("4 Validate Block Chain\n");                             // Validates the blockchain to check for attacks
+    printf("5 Print the Information of the current Block\n");       //Info on the current block
+    printf("6 Print the Information of a Block\n");                 //Info about any particular block
+    printf("7 Print the Information of a User\n");                  //Info about a user in the system {Including Transaction history????}
+    printf("8 Print UIDs and wallet balance of all Users\n");       //Prints the list of UIDs for all Users in the system
+    printf("9 Print Number of Blocks\n\n");                         //Prints the numbers of blocks comprising the blockchain
+    printf("Choose which function you want to execute (0 - 9) : ");
+    return;
+}
+
 int main()
 {
     double InitialBalance;
@@ -29,20 +46,20 @@ int main()
 
     while(choice != 0)
     {
-        printf("\nThe following functions are supported:\n"); // Using numbers to perform a certian transaction corresponding to its value
-        printf("0 Exit\n"); //Exits the program
-        printf("1 Add user to the system\n");   // Adds a user to the system
-        printf("2 Transact\n");  // Performs a transaction
-        printf("3 Attack\n");   // Performs the attack function that may alter nonce values
-        printf("4 Validate Block Chain\n"); // Validates the blockchain to check for attacks
-        printf("5 Print the Information of the current Block\n");   //Info on the current block
-        printf("6 Print the Information of a Block\n"); //Info about any particular block
-        printf("7 Print the Information of a User\n");  //Info about a user in the system {Including Transaction history????}
-        printf("8 Print UIDs and wallet balance of all Users\n");  //Prints the list of UIDs for all Users in the system
-        printf("9 Print Number of Blocks\n\n"); //Prints the numbers of blocks comprising the blockchain
-        printf("Choose which function you want to execute (0 - 9) : ");
-
-        scanf("%d", &choice);
+        printMenu();
+        
+        char input;
+        scanf(" %c", &input);
+        if(input < '0' || input > '9')
+        {
+            do
+            {
+                printf("\nSorry, you seem to have entered an incorrect input. Please try again!\n");
+                printMenu();
+                scanf(" %c", &input);   
+            }while(input < '0' || input > '9');
+        }
+        choice = input - '0';
 
         switch(choice)
         {

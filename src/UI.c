@@ -81,6 +81,11 @@ void UI_PrintCurrentBlockInfo(BlockChain B)
     printf("\tpreviousBlockHash: %d\n", B->CurrBlock->PreviousBlockHash);
     printf("\tNonce: %d\n", B->CurrBlock->Nonce);
     printf("\tNumber of transactions: %d\n", B->CurrBlock->numTransaction);
+    if(B->CurrBlock->numTransaction == 0)
+    {
+        printf("\tThe Block has no transactions\n");
+        return;
+    }
     printf("\tTransactions -\n");
     for(int i=0; i<B->CurrBlock->numTransaction; i++) 
     {
@@ -104,6 +109,11 @@ void UI_PrintInfoBlock(BlockChain B)
             printf("\tpreviousBlockHash: %d\n", ptr->PreviousBlockHash);
             printf("\tNonce: %d\n", ptr->Nonce);
             printf("\tNumber of transactions: %d\n", ptr->numTransaction);
+            if(ptr->numTransaction == 0)
+            {
+                printf("\tThe Block has no transactions\n");
+                return;
+            }
             printf("\tTransactions -\n");
             for(int i=0; i<ptr->numTransaction; i++) 
             {
