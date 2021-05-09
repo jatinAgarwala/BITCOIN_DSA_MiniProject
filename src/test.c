@@ -48,7 +48,7 @@ int test_Attack(BlockChain B, UsersArray* UA, UserHashTable* UHT, double Initial
     double Amount;
     double SInitialBalance = S->Balance;
     Amount = (S->Balance)/2;
-    for(int i=0; i<502; i++) {
+    for(int i=0; i<2502; i++) {
         if(i%2==0) {
             Transact(S->UID, R->UID, Amount, B, *UA, *UHT);
         }
@@ -60,17 +60,18 @@ int test_Attack(BlockChain B, UsersArray* UA, UserHashTable* UHT, double Initial
     int i=0;
     while(ptr!=NULL) {
         prevNonceVals[i] = ptr->Nonce;
-        //printf("%d ", prevNonceVals[i]);
+        printf("%d ", prevNonceVals[i]);
         i++;
         ptr = ptr->Next;
     }
-    //printf("\n");
+    printf("\n");
+    int Result = 0;
     int attackResult = Attack(B);
     if(attackResult>0) {
         ptr = B->Head;
         while(ptr!=NULL) {
             if(ptr->BlockNumber==attackResult) {
-                //printf("%d %d\n", ptr->BlockNumber, ptr->Nonce);
+                //printf("Attacked, old, new: %d %d %d\n", ptr->BlockNumber, prevNonceVals[ptr->BlockNumber-1], ptr->Nonce);
                 break;
             }
             ptr = ptr->Next;
@@ -81,24 +82,24 @@ int test_Attack(BlockChain B, UsersArray* UA, UserHashTable* UHT, double Initial
         }
         else {
             printf("Test Attack function passed\n");
-            return 1;
+            Result++;
+            //printf("%d\n", Validate_BlockChain(B));
+            Validate_BlockChain(B);
+            //printf("Updated: %d\n", ptr->Nonce);
+            if(prevNonceVals[attackResult-1]==ptr->Nonce) {
+                printf("Test ValidateBlockChain function has passed\n");
+                Result++;
+            }
+            else printf("Test ValidateBlockChain function has failed\n");
+            return Result;
         }
-        // int i=0;
-        // ptr = B->Head;
-        // while(ptr!=NULL) {
-        //     prevNonceVals[i] = ptr->Nonce;
-        //     printf("%d ", prevNonceVals[i]);
-        //     i++;
-        //     ptr = ptr->Next;
-        // }
-        //printf("\n");
     }
-    return test_Attack(B, UA, UHT, InitialBalance);
 }
 
 int test_PrintAllUIDs(UsersArray* UA, UserHashTable* UHT, double InitialBalance) {
-    int UIDvals[600] = {0};
-    for(int i=0; i<600; i++) {
+    int UIDvals[1600] = {0};
+    for(int i=0; i<1600; i++) {
+        //printf("%d\n", (*UA)->ArraySize);
         User newUser = AddUser(UA, UHT, InitialBalance);
         UIDvals[i] = newUser->UID;
         //printf("%d\n", UIDvals[i]);
@@ -143,20 +144,21 @@ int test_PrintNumBlocks(UsersArray* UA, UserHashTable* UHT, double InitialBalanc
 
 int main() {
     double InitialBalance = 5000;
+
+    srand(time(NULL));
+
     BlockChain B = InitBlockChain();    //Creating a blockchain
     UserHashTable UHT = InitUserHashTable(UHTsize); //Creating a UserHashTable
     UsersArray UA = InitUsersArray(UAsize); //Creating an Array where UserInfo is stored
 
-    srand(time(0));
-
     int tcs=0;
 
-    tcs += test_PrintAllUIDs(&UA, &UHT, InitialBalance);
+    tcs += test_PrintAllUIDs(&UA, &UHT, InitialBalance);        //this function also checks ResizeUA and ResizeUHT
     tcs += test_AddUser(&UA, &UHT, InitialBalance);
     tcs += test_Transact(B, &UA, &UHT, InitialBalance);
-    tcs += test_Attack(B, &UA, &UHT, InitialBalance);
+    tcs += test_Attack(B, &UA, &UHT, InitialBalance);           //this function also checks for ValidateBlockChain
     tcs += test_PrintNumBlocks(&UA, &UHT, InitialBalance);
 
-    printf("%d test cases out of %d have passed\n", tcs, 9);
+    printf("%d test cases out of %d have passed\n", tcs, 6);
     return 0;
 }

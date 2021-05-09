@@ -5,7 +5,6 @@
 
 Block InitBlock()
 {
-    srand(time(0));
     Block Temp = (Block)malloc(sizeof(struct block));
     Temp->PreviousBlockHash = 0;
     Temp->BlockNumber = 1;
@@ -84,7 +83,7 @@ int Attack(BlockChain B)    //Head is pointer to 1st block
             int r = rand()%500 + 1;
             if(r == tmp->Nonce)
             {
-                tmp->Nonce = r+1;         
+                tmp->Nonce = (r+1)%500;         
             }
             else 
                 tmp->Nonce = r;
@@ -151,24 +150,24 @@ int getpreviousBlockHash(Block block_node) // block_node = ptr to the previous b
         BlockNumbertemp /= 10;
     }
     prod = prod%6;      //prod gives us the digit of the base_num that is to be changed
-    int newDigit = (power(BlockNumber, 2))%10;
+    int newDigit = (BlockNumber*BlockNumber)%10;
      
     BlockNumberFnResult = replace(newDigit,prod,base_num);
 
     int tmp1,tmp2,tmp_sum=0;
     for(int i=0;i<50;i++)
     {
-        tmp1 =  (transactions[i]->S_UID + transactions[i]->R_UID)%power(10, 7) ; 
+        tmp1 =  (transactions[i]->S_UID + transactions[i]->R_UID)%10000000 ; 
         tmp2 = ((int) transactions[i]->Amount)/50;
-        tmp1 = (tmp1*tmp2)%power(10, 7);
-        tmp_sum = (tmp_sum+tmp1)%power(10, 7);
+        tmp1 = (tmp1*tmp2)%10000000;
+        tmp_sum = (tmp_sum+tmp1)%10000000;
     }
 
     tmp_sum = tmp_sum%6 ;
     int tmp_sum1 = tmp_sum%6;
     int transation_results = replace(tmp_sum % 10,tmp_sum1,base_num);//replace digit in previousBlockhash
 
-    int NewBlockHash = (BlockNumberFnResult + transation_results + nonce) % power(10,7);
+    int NewBlockHash = (BlockNumberFnResult + transation_results + nonce) % 10000000;
 
     return NewBlockHash;
 }
@@ -176,12 +175,12 @@ int getpreviousBlockHash(Block block_node) // block_node = ptr to the previous b
 int Validate_BlockChain(BlockChain Chain)   //Iterates from first block to second last, and checks if the nonce is correct for each. If not, then fixes it
 {   
     Block ptr = Chain->Head;
-    if(ptr == Chain->Head)
-        return 0;
+    // if(ptr == Chain->Head)
+    //     return 0;
     
     int flag = 0;
 
-    while(ptr->Next != Chain->CurrBlock)
+    while(ptr != Chain->CurrBlock)
     {
         int pBh = ptr->Next->PreviousBlockHash ;    //we are accessing the stored value of previousBlockhash (original value)
         int pBh_next = getpreviousBlockHash(ptr);   // here we are computing the new value to check the validity
@@ -194,7 +193,7 @@ int Validate_BlockChain(BlockChain Chain)   //Iterates from first block to secon
                 pBh_next = getpreviousBlockHash(ptr);
                 if(pBh==pBh_next)  
                 {
-                    printf("block %d was attacked ",ptr->BlockNumber);
+                    printf("Block %d was attacked\n",ptr->BlockNumber);
                     flag = 1;
                     break;
                 }

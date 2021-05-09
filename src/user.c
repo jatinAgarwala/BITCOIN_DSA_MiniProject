@@ -64,7 +64,7 @@ UserHashTable InitUserHashTable(int HTSize)     //Allocates memory for UserHashT
 
 void ResizeUA(UsersArray* UA)    //Resizes the UsersArray if it gets filled
 {
-    (*UA)->ArrayOfUsers = realloc((*UA)->ArrayOfUsers, 2*((*UA)->ArraySize));
+    (*UA)->ArrayOfUsers = realloc((*UA)->ArrayOfUsers, 2*((*UA)->ArraySize)*sizeof(User));
     (*UA)->ArraySize = ((*UA)->ArraySize)*2;
     return;
 }

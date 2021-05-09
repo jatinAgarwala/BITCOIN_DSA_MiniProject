@@ -139,28 +139,56 @@ Defines:
   9. int Validate_BlockChain(BlockChain Chain)
   10. int Transact(int S_UID, int R_UID, int Amount)
 
-### Transaction.h
+### transaction.h
 Contains :
  1. struct transaction (corresponding pointer typedefed as Transaction)
  2. struct user_transactions (corresponding pointer typedefed as U_transactions)
  
-### Transaction.c
+### transaction.c
 Contains:
  1. Transaction InitTransaction() (function to initialize an instance of a transaction)
  2. U_transactions InitU_Transaction() (function to initialize an instance of a user transaction)
 
-### User.h
+### user.h
  Contains :
  1. struct user (typedefed as User)
  2. struct usersArray 
- 3. 
+ 3. struct userHashTable
  2. added UserHashFunction, ResizeUHT, AddUser, SearchUHT
 
-### User.c
- 1. Get_JoinDateTime (return char * - a string pointer giving JDT as DAY Month DD HH:MM:SS YYYY)
- 2. InitUser() (function to initialize User)
- 3. makeUserTransaction(int UID,double Amount) (function to create a node that is to be added to a user's transaction history)
- 4. addUserTransaction(U_transactions TH, int UID, double Amount) (function to add a transaction to a user's transaction history)
- 5. InitUserHashTable() (initializes a hash table)
- 6. SearchUHT() (Searches the created Hash Table for existing entry values)
- 7. AddUser() (Adds a user to the index)
+### user.c
+Contains :
+ 1. char* Get_JoinDateTime (returns a string pointer giving JDT as DAY Month DD HH:MM:SS YYYY)
+ 2. User InitUser() (function to initialize User)
+ 3. U_transactions InitUserTransaction(int UID,double amount) (function to initialize a user transaction)
+ 4. UserArray InitUsersArray(int UASize) (function to initialize the array of Users)
+ 5. UserHashTable InitUserHashTable(int HTSize) (function to initialize the user hash table)
+ 6. void ResizeUA(UsersArray* UA) (function to resize the user array when it gets filled)
+ 7. void DeleteUHT(UserHashTable* UHT) (function to delete a hash table)
+ 8. UserHashTable ResizeUHT(UsersArray UA, UserHashTable* UHT) (function to resize the user hash table when it gets half filled)
+ 9. int UserHashFunction(int UID, UserHashTable UHT)
+ 10. int* SearchUHT(int UID, UserHashTable UHT) (function to search the hash table)
+ 11. int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable* UHT) (function to insert into the hash table)
+ 12. User AddUser(UsersArray* UA, UserHashTable* UHT, double InitialBalance) (function to add a user)
+ 13. User FindUser(int UID, UsersArray UA, UserHashTable UHT) (return a pointer to the User, if the user exists)
+ 14. void AddUserTH(U_transactions TH, int UID, double amount) (function to add a transaction to the user's transaction history)
+ 15. void AddUserTransaction(int S_UID, int R_UID, double amount, UsersArray UA, UserHashTable UHT) (function to do a transaction between two users; uses above functions)
+ 
+### UI.h
+ Includes transaction.h, user.h, and block.h
+ 
+### UI.c
+UI.c contains the nine functions that are to be called in main.
+Contains :
+ 1. int UI_AddUser(UsersArray* UA, UserHashTable* UHT, double InitialBalance)
+ 2. void UI_Transact(BlockChain B, UsersArray UA, UserHashTable UHT)
+ 3. void UI_Attack(BlockChain B) 
+ 4. int UI_ValidateBlockChain(BlockChain B) 
+ 5. void UI_PrintCurrentBlockInfo(BlockChain B) 
+ 6. void UI_PrintInfoBlock(BlockChain B) 
+ 7. void UI_PrintUserInfo(UsersArray UA , UserHashTable UHT)
+ 8. void UI_PrintAll_UIDs(UsersArray UA) 
+ 9. void UI_PrintNumBlocks(BlockChain B) 
+ 
+### main.c
+The main file. Calls the nine functions contained in UI.c and gives the user a menu based UI.

@@ -13,12 +13,12 @@
 int main()
 {
     double InitialBalance;
-
+    srand(time(NULL));
+    
     BlockChain B = InitBlockChain();    //Creating a blockchain
     UserHashTable UHT = InitUserHashTable(UHTsize); //Creating a UserHashTable
     UsersArray UA = InitUsersArray(UAsize); //Creating an Array where UserInfo is stored
 
-    srand(time(0));
     printf("\t\t\tBITCOIN\t\t\n");
     printf("\t\t\t-------\t\t\n\n\n");
 
