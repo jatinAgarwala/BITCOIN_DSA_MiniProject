@@ -6,7 +6,7 @@
 #include "../include/transaction.h"
 #include "../include/user.h"
 
-int UI_AddUser(UsersArray UA, UserHashTable UHT, double InitialBalance) 
+int UI_AddUser(UsersArray* UA, UserHashTable* UHT, double InitialBalance) 
 {
     User newUser = AddUser(UA, UHT, InitialBalance);
     printf("New user added with UID: %d\n", newUser->UID);

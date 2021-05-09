@@ -50,7 +50,7 @@ int main()
                 printf("\nThank you for using our Bitcoin software.\nHave a nice day!\n");    //Generic Polite Outro
                 break;
             case 1:
-                UI_AddUser(UA, UHT, InitialBalance);    //Invokes the InitUser function to add a user
+                UI_AddUser(&UA, &UHT, InitialBalance);    //Invokes the InitUser function to add a user
                 break;
             case 2:
                 UI_Transact(B, UA, UHT);    //Performs a transaction

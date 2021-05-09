@@ -62,32 +62,35 @@ UserHashTable InitUserHashTable(int HTSize)     //Allocates memory for UserHashT
     return tempUHT;
 }
 
-void ResizeUA(UsersArray UA)    //Resizes the UsersArray if it gets filled
+void ResizeUA(UsersArray* UA)    //Resizes the UsersArray if it gets filled
 {
-    UA->ArrayOfUsers = realloc(UA->ArrayOfUsers, 2*(UA->ArraySize));
-    UA->ArraySize = (UA->ArraySize)*2;
+    (*UA)->ArrayOfUsers = realloc((*UA)->ArrayOfUsers, 2*((*UA)->ArraySize));
+    (*UA)->ArraySize = ((*UA)->ArraySize)*2;
     return;
 }
 
-void DeleteUHT(UserHashTable UHT)   //Deletes the User HashTable. This is used when we have to resize the UHT
+void DeleteUHT(UserHashTable* UHT)   //Deletes the User HashTable. This is used when we have to resize the UHT
 {
-    free(UHT->UserHT);
-    free(UHT);
+    free((*UHT)->UserHT);
+    free(*UHT);
     return;
 }
 
-UserHashTable ResizeUHT(UsersArray UA, UserHashTable UHT)      //Resizes UHT to double the current size if it's filled up 50%
+UserHashTable ResizeUHT(UsersArray UA, UserHashTable* UHT)      //Resizes UHT to double the current size if it's filled up 50%
 {
-    UserHashTable NewUHT = InitUserHashTable((UHT->UHTSize)*2);
-    for(int i=0;i<UHT->UHTSize;i++)
+    UserHashTable NewUHT = InitUserHashTable(((*UHT)->UHTSize)*2);
+    for(int i=0;i<(*UHT)->UHTSize;i++)
     {
-        if((UHT->UserHT[i] != -1))
+        if(((*UHT)->UserHT[i] != -1))
         {
-            int userIndex = UHT->UserHT[i];
+            int userIndex = (*UHT)->UserHT[i];
+            if(userIndex==UA->CurrIndex) {
+                continue;
+            }
             int UIDcurr = UA->ArrayOfUsers[userIndex]->UID;
             int newIndex = UserHashFunction(UIDcurr, NewUHT); 
             NewUHT->UserHT[newIndex] = userIndex;
-            NewUHT->UHTSize++;
+            NewUHT->NumUsers++;
         }
     }
     DeleteUHT(UHT);
@@ -107,7 +110,7 @@ int* SearchUHT(int UID, UserHashTable UHT)          //Takes input the UID and us
     return &(UHT->UserHT[HashValue]);
 }
 
-int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable UHT)     //Takes input the index of the user in UserArray and stores it in the index returned by the HashFunction
+int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable* UHT)     //Takes input the index of the user in UserArray and stores it in the index returned by the HashFunction
                                                                     //when it takes the UID as input. The function returns the random UID generated
 {
     int flag=0;
@@ -115,7 +118,7 @@ int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable UHT)     //Takes inpu
     while(flag == 0)
     {
         UID = (rand()%MOD_UID) + MIN_UID;
-        int* position = SearchUHT(UID, UHT);
+        int* position = SearchUHT(UID, *UHT);
         if (*position != -1)
         {
             continue;
@@ -126,23 +129,23 @@ int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable UHT)     //Takes inpu
             flag=1;
         }
     }
-    UHT->NumUsers++;
-    if(UHT->NumUsers == (UHT->UHTSize)/2)
+    (*UHT)->NumUsers++;
+    if((*UHT)->NumUsers == ((*UHT)->UHTSize)/2)
     {
-        UHT = ResizeUHT(UA, UHT);
+        *UHT = ResizeUHT(UA, UHT);
     }
     return UID;
 }
 
-User AddUser(UsersArray UA, UserHashTable UHT, double InitialBalance)  //Adds a new user, returns the pointer to the User (which also stores the randomly generated UID)
+User AddUser(UsersArray* UA, UserHashTable* UHT, double InitialBalance)  //Adds a new user, returns the pointer to the User (which also stores the randomly generated UID)
 {
     User Temp = InitUser();
     Temp->Balance = InitialBalance;
-    Temp->UID = AddUserUHT(UA->CurrIndex, UA, UHT);
+    Temp->UID = AddUserUHT((*UA)->CurrIndex, *UA, UHT);
     //printf("New User UID = %d\n",Temp->UID);
-    UA->ArrayOfUsers[UA->CurrIndex] = Temp;
-    UA->CurrIndex++;
-    if(UA->CurrIndex == UA->ArraySize)
+    (*UA)->ArrayOfUsers[(*UA)->CurrIndex] = Temp;
+    (*UA)->CurrIndex++;
+    if((*UA)->CurrIndex == (*UA)->ArraySize)
         ResizeUA(UA);
     return Temp;
 }

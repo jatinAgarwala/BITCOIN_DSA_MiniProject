@@ -11,6 +11,7 @@ _DEPS = transaction.h user.h block.h UI.h
 		
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
+#_OBJ = transaction.o user.o block.o UI.o test.o
 _OBJ = transaction.o user.o block.o UI.o main.o
 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
@@ -20,6 +21,8 @@ $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
 
 bitcoin: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+#tests: $(OBJ)
+#	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 
