@@ -3,7 +3,7 @@
 #include <time.h>
 #include "../include/block.h"
 
-Block InitBlock()
+Block InitBlock()                    // allocates memory for a new block
 {
     Block Temp = (Block)malloc(sizeof(struct block));
     Temp->PreviousBlockHash = 0;
@@ -13,12 +13,12 @@ Block InitBlock()
     Temp->Nonce = (rand()%500)+1 ;
     Temp->numTransaction = 0;
     for(int i=0;i<50;i++)
-        Temp->TransactionArray[i] = InitTransaction();
+        Temp->TransactionArray[i] = InitTransaction();     //allocating memory for struct transaction in transaction array
         
     return Temp;
 }
 
-BlockChain InitBlockChain()
+BlockChain InitBlockChain()                  // allocating memory for a blockchain and its contents (info like number of blocks, pointers to head block and current block)
 {
     BlockChain temp = (BlockChain)malloc(sizeof(struct blockChain));
     temp->Head = InitBlock();
@@ -37,26 +37,32 @@ void AddBlock(BlockChain B)        //Function to add a new block to the blockcha
     }
     Block cur = B->CurrBlock;
     newBlock->BlockNumber = cur->BlockNumber+1;
-    newBlock->PreviousBlockHash = getpreviousBlockHash(cur);
+    newBlock->PreviousBlockHash = getpreviousBlockHash(cur);   
+
+    //maintaining a doubly linked list
     cur->Next = newBlock;
     newBlock->Prev = cur;
-    B->CurrBlock = newBlock;
+
+    
+    B->CurrBlock = newBlock;        //updating the current Block pointer
     B->NumBlocks++;
     return;
 }
 
 void AddBlockTransaction(int S_UID, int R_UID, double amount, BlockChain B)  //maintains transactions for a block
 {
-    if(B->CurrBlock->numTransaction == 50 )
+    if(B->CurrBlock->numTransaction == 50 )   
     {
-        AddBlock(B);
+        AddBlock(B);       //when previous block is full
     }
 
     int transaction_number = B->CurrBlock->numTransaction;
+
     B->CurrBlock->TransactionArray[transaction_number]->S_UID = S_UID;
     B->CurrBlock->TransactionArray[transaction_number]->R_UID = R_UID;
     B->CurrBlock->TransactionArray[transaction_number]->Amount = amount;
-    B->CurrBlock->numTransaction++;
+
+    B->CurrBlock->numTransaction++;       
     return;
 }
 
@@ -136,39 +142,54 @@ int getpreviousBlockHash(Block block_node) // block_node = ptr to the previous b
     int previousBlockHash = block_node->PreviousBlockHash;
     int nonce = block_node->Nonce ;
     
-    if(previousBlockHash==0)          // for Block 1/head block
+    if(previousBlockHash==0)          // for Block 1 or head block
     previousBlockHash = 123456;
 
-    int base_num = previousBlockHash; 
 
-    //Using BlockNumber 'function'
+// hash function includes three parts 
+
+// part 1 : modifying the 6 digit previousBlock using blocknumber
+    
+    int base_num = previousBlockHash; 
     int BlockNumberFnResult;
     int BlockNumbertemp = BlockNumber;
+
     int prod = 1;
     while(BlockNumbertemp>0) 
     {
         prod *= BlockNumbertemp%10;
         BlockNumbertemp /= 10;
     }
-    prod = prod%6;      //prod gives us the digit of the base_num that is to be changed
-    int newDigit = (BlockNumber*BlockNumber)%10;
+    // prod = product of digits of BlockNumber
+
+    prod = prod%6;      //prod gives us the position of the digit of the base_num that is to be changed from the right side
+    int newDigit = (BlockNumber*BlockNumber)%10;  // newDigit is the number which will replace the above mentioned number
      
-    BlockNumberFnResult = replace(newDigit,prod,base_num);
+    BlockNumberFnResult = replace(newDigit,prod,base_num);  //replacing the digit with nreDigit
+
+    //Now BlockNumberFnResult is the number we got using BlockNumber and PreviousBlockHash
+
+
+   //part 2 : modifying the 6 digit previousBlockHash using transaction history details
 
     int tmp1,tmp2,tmp_sum=0;
-    for(int i=0;i<50;i++)
+    for(int i=0;i<50;i++)      // loop using info of all the 50 transactions and generating a number by an algorithm
     {
         tmp1 =  (transactions[i]->S_UID + transactions[i]->R_UID)%10000000 ; 
         tmp2 = ((int) transactions[i]->Amount)/50;
         tmp1 = (tmp1*tmp2)%10000000;
         tmp_sum = (tmp_sum+tmp1)%10000000;
     }
+    
+    int tmp_sum2 = tmp_sum%6 ;       //tmp_sum gives us the position of the digit of the base_num that is to be changed from the right side
+    int tmp_sum1 = (tmp_sum*tmp_sum)%10000000;  
+    tmp_sum1 = tmp_sum1 %10 ;           // tmp_sum1 is the number which will replace the above mentioned number
+            
+    int transaction_results = replace(tmp_sum1,tmp_sum2,base_num);  //replace digit in previousBlockhash
 
-    tmp_sum = tmp_sum%6 ;
-    int tmp_sum1 = tmp_sum%6;
-    int transation_results = replace(tmp_sum % 10,tmp_sum1,base_num);//replace digit in previousBlockhash
 
-    int NewBlockHash = (BlockNumberFnResult + transation_results + nonce) % 10000000;
+    // Part 3 : adding BlockNumberFnResult , transaction_results and nonce to get our NewBlockHash
+    int NewBlockHash = (BlockNumberFnResult + transaction_results + nonce) % 10000000; 
 
     return NewBlockHash;
 }
@@ -181,14 +202,14 @@ int Validate_BlockChain(BlockChain Chain)   //Iterates from first block to secon
     
     int flag = 0;
 
-    while(ptr != Chain->CurrBlock)
+    while(ptr != Chain->CurrBlock)     // will stop when reaches Current Block as Current Block can't be attacked
     {
         int pBh = ptr->Next->PreviousBlockHash ;    //we are accessing the stored value of previousBlockhash (original value)
         int pBh_next = getpreviousBlockHash(ptr);   // here we are computing the new value to check the validity
         
-        if(pBh!=pBh_next)
+        if(pBh!=pBh_next)         // if nonce does not match --> attack has happened 
         {
-            for(int i=1;i<=500;i++)
+            for(int i=1;i<=500;i++)   // iterates through 1 to 500 to find the original nonce
             {
                 ptr->Nonce = i;
                 pBh_next = getpreviousBlockHash(ptr);
