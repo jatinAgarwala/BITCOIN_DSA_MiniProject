@@ -12,6 +12,44 @@ Users can execute the following steps to run the tests of the Bitcoin software
     -> Execute the command "make tests" - This will compile the src files, including test.c and create the tests executable using the Makefile.  
     -> Running the executable file using "./tests" will execute the tests and print the results on the screen.  
     -> The final output line should read "6 test cases out of 6 have passed" if the software is bug-free.  
+    
+## Tests Description
+There are 5 different test functions - 
+ 1. int test_AddUser(UsersArray* UA, UserHashTable* UHT, double InitialBalance)  
+ 	This function tests the AddUser function in the program.  
+ 	First, a user is added into the program using AddUser (which return a pointer to this user).
+ 	Then, the FindUser function is used to obtain another pointer to this user.
+ 	If the two pointers are equal, then the AddUser function works.
+ 	
+ 2. int test_Transact(BlockChain B, UsersArray* UA, UserHashTable* UHT, double InitialBalance)  
+ 	This function tests the Transact function in the program.  
+ 	First, two users (sender and receiver) are added in the program.
+ 	Then, a random Amount (which is lesser than sender's balance) is generated and Transact function is called. 
+    This function will change the balance of both the users.
+ 	If the sender's balance was decreased by Amount and the receiver's balance increased by Amount, then the Transact function works.
+ 	
+ 3. int test_Attack(BlockChain B, UsersArray* UA, UserHashTable* UHT, double InitialBalance)  
+ 	This function tests the Attack and ValidateBlockChain functions in the program.  
+ 	First, two users are added. These two users are made to exchange some fixed amount back and forth, 2502 times (Transact function called each time).
+ 	This ensures that 51 blocks are created.
+ 	The nonce value of each block is stored in an array.  
+	Then, the Attack function is called (which changes the nonce of some block).
+	If the nonce of the attacked block is different from its original nonce (accessible from the array), then the Attack function works.  
+	Now, the ValidateBlockChain function is invoked. If the nonce of the attacked block has been restored to its original value, then ValidateBlockChain works.
+	
+ 4. int test_PrintAllUIDs(UsersArray* UA, UserHashTable* UHT, double InitialBalance)  
+ 	This function tests the PrintAllUIDs, resizeUA, and resizeUHT functions in the program.  
+ 	First, 1600 users are added into the program. Their UIDs are stored in an array.
+ 	Since the size of the user array and user hash table is 1000 in the test.c file, inserting 1600 users guarantees that the resizeUA (to resize user array) and resizeUHT (to resize user hash table) functions were invoked.
+ 	Then, the UID values that were stored in the array are compared to the UIDs stored in the user array. If the two values are equal for every user, then all 3 functions work.
+ 	
+ 5. int test_PrintNumBlocks(UsersArray* UA, UserHashTable* UHT, double InitialBalance)  
+ 	This function tests the PrintNumBlocks function in the program.  
+ 	First, two users are added into the program. These users are made to exchange some amount back and forth for some randomly generated number of times. 
+ 	This generated number can be used to calculate the expected number of blocks in the blockchain.
+ 	If the expected number is equal to the actual number of blocks, then the PrintNumBlocks function works.
+
+
 
 # PROJECT DESCRIPTION
 
