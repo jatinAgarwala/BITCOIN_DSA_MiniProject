@@ -193,7 +193,7 @@ int Validate_BlockChain(BlockChain Chain)   //Iterates from first block to secon
                 pBh_next = getpreviousBlockHash(ptr);
                 if(pBh==pBh_next)  
                 {
-                    printf("Block %d was attacked\n",ptr->BlockNumber);
+                    printf("\tBlock %d was attacked\n",ptr->BlockNumber);
                     flag = 1;
                     break;
                 }

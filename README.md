@@ -2,8 +2,16 @@
 This is the repository for group 9 of the Data Structures and Algorithms MiniProject for the UG1 students of IIIT Hyderabad during the year 2020-21. Our topic is-
 
 # COMPILATION INSTRUCTIONS
+Users can execute the following steps to compile and use the Bitcoin software :
+    -> Clone the github repository to your local machine
+    -> Execute the command "make" or "make bitcoin" - This will compile the src files and create the bitcoin executable using the Makefile.
+    -> Running the executable file using "./bitcoin" will run the application.
 
 # RUNNING TESTS
+Users can execute the following steps to run the tests of the Bitcoin software
+    -> Execute the command "make tests" - This will compile the src files, including test.c and create the tests executable using the Makefile.
+    -> Running the executable file using "./tests" will execute the tests and print the results on the screen.
+    -> The final output line should read "6 test cases out of 6 have passed" if the software is bug-free.
 
 # PROJECT DESCRIPTION
 
