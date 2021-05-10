@@ -44,6 +44,7 @@ UsersArray InitUsersArray(int UASize)      //Allocates memory for UsersArray
     tempUA->ArrayOfUsers = (User*)malloc(sizeof(User)*(UASize+1));
     for(int i=0;i<UASize;i++)
         tempUA->ArrayOfUsers[i]=NULL;
+    
     tempUA->ArraySize = UASize;
     tempUA->CurrIndex = 0;
     return tempUA;
@@ -54,9 +55,8 @@ UserHashTable InitUserHashTable(int HTSize)     //Allocates memory for UserHashT
     UserHashTable tempUHT = (UserHashTable)malloc(sizeof(struct userHashTable));
     tempUHT->UserHT = (int*)malloc(sizeof(int)*HTSize);
     for (int i=0;i<HTSize;i++)
-    {
         tempUHT->UserHT[i] = -1;
-    }
+    
     tempUHT->NumUsers=0;
     tempUHT->UHTSize = HTSize;
     return tempUHT;
@@ -84,9 +84,9 @@ UserHashTable ResizeUHT(UsersArray UA, UserHashTable* UHT)      //Resizes UHT to
         if(((*UHT)->UserHT[i] != -1))
         {
             int userIndex = (*UHT)->UserHT[i];
-            if(userIndex==UA->CurrIndex) {
+            if(userIndex==UA->CurrIndex)
                 continue;
-            }
+            
             int UIDcurr = UA->ArrayOfUsers[userIndex]->UID;
             int newIndex = UserHashFunction(UIDcurr, NewUHT); 
             NewUHT->UserHT[newIndex] = userIndex;
@@ -120,9 +120,8 @@ int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable* UHT)     //Takes inp
         UID = (rand()%MOD_UID) + MIN_UID;
         int* position = SearchUHT(UID, *UHT);
         if (*position != -1)
-        {
             continue;
-        }
+        
         else
         {
             *position = UserIndex;
@@ -131,9 +130,8 @@ int AddUserUHT(int UserIndex, UsersArray UA, UserHashTable* UHT)     //Takes inp
     }
     (*UHT)->NumUsers++;
     if((*UHT)->NumUsers == ((*UHT)->UHTSize)/2)
-    {
         *UHT = ResizeUHT(UA, UHT);
-    }
+    
     return UID;
 }
 
