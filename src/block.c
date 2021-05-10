@@ -3,6 +3,8 @@
 #include <time.h>
 #include "../include/block.h"
 
+const int SourceNumber = 123456;
+
 Block InitBlock()                    // allocates memory for a new block
 {
     Block Temp = (Block)malloc(sizeof(struct block));
@@ -142,13 +144,12 @@ int getpreviousBlockHash(Block block_node) // block_node = ptr to the previous b
     int previousBlockHash = block_node->PreviousBlockHash;
     int nonce = block_node->Nonce ;
     
-    if(previousBlockHash==0)          // for Block 1 or head block
-    previousBlockHash = 123456;
+    if(previousBlockHash==0)                // for Block 1 or head block
+        previousBlockHash = SourceNumber;   // We do this since our hash function assumes previousBlockHash is a 6 digit number
 
+    // hash function includes three parts 
 
-// hash function includes three parts 
-
-// part 1 : modifying the 6 digit previousBlock using blocknumber
+    // part 1 : modifying the 6 digit previousBlock using blocknumber
     
     int base_num = previousBlockHash; 
     int BlockNumberFnResult;
@@ -170,7 +171,7 @@ int getpreviousBlockHash(Block block_node) // block_node = ptr to the previous b
     //Now BlockNumberFnResult is the number we got using BlockNumber and PreviousBlockHash
 
 
-   //part 2 : modifying the 6 digit previousBlockHash using transaction history details
+    //part 2 : modifying the 6 digit previousBlockHash using transaction history details
 
     int tmp1,tmp2,tmp_sum=0;
     for(int i=0;i<50;i++)      // loop using info of all the 50 transactions and generating a number by an algorithm
