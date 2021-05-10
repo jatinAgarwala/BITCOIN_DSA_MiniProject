@@ -40,13 +40,16 @@ int main()
     printf("\t\t\t-------\t\t\n\n\n");
 
     printf("Choose the amount that every new user will have: ");    // Setting a default Balance amount that will be applicable for all users
+    InitialBalance = -1;
     scanf("%lf", &InitialBalance);
 
-    while(InitialBalance <= 0)
+    while(InitialBalance <= 0 && ((((char) InitialBalance)<='0') || (((char) InitialBalance)>='9')))
     {
         printf("The initial balance must be a positive value.\n");
         printf("\nChoose the amount that every new user will have: ");
         scanf("%lf", &InitialBalance);
+        char c;
+        scanf("%c", &c);                                            //When user enters a character in place of Amount
     }
 
     int choice = -1;
