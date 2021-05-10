@@ -4,7 +4,7 @@ This is the repository for group 9 of the Data Structures and Algorithms MiniPro
 # COMPILATION INSTRUCTIONS
 Users can execute the following steps to compile and use the Bitcoin software :  
     -> Clone the github repository to your local machine  
-    -> If the obj folder is not present in the src folder, create an empty obj folder in src.
+    -> If the obj folder is not present in the src folder, create an empty obj folder in src.  
     -> Execute the command "make" or "make bitcoin" - This will compile the src files and create the bitcoin executable using the Makefile.  
     -> Running the executable file using "./bitcoin" will run the application.  
 
