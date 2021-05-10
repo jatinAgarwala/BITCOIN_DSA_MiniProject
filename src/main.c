@@ -43,9 +43,9 @@ int main()
     InitialBalance = -1;
     scanf("%lf", &InitialBalance);
 
-    while(InitialBalance <= 0 && ((((char) InitialBalance)<='0') || (((char) InitialBalance)>='9')))
+    while((InitialBalance <= 0 && ((((char) InitialBalance)<='0') || (((char) InitialBalance)>='9'))) || InitialBalance > 1000000)
     {
-        printf("The initial balance must be a positive value.\n");
+        printf("The initial balance must be a positive value between 0 and 1000000.\n");
         printf("\nChoose the amount that every new user will have: ");
         scanf("%lf", &InitialBalance);
         char c;
